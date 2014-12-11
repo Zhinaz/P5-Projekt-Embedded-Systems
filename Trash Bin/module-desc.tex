@@ -1,0 +1,22 @@
+\section{Module description} \label{sec:module-description}
+
+This section contains a description of the most important modules created for the \projname{}. The entire source code is available in \appref{app:CD}.
+
+\subsection{Bluetooth}
+The communication module lets the master and slave unit communicate with each other and transmit values used to determine which operation to perform next. In order to make Bluetooth work, some commands and statements must be executed. First, the necessary initialisations and assignments are required. Then some variables associated with the slave brick is needed in order to establish a connection.
+
+When the connection has been established, is is possible to communicate between the two bricks. From the master unit, the \emph{CallCollectionUnit()} method sends a message to the slave unit. This message tells the slave unit to start the collection process. In the meantime the master unit sits in a while loop and wait for a response from the slave unit, telling it that the unit has been collected and that the master unit can continue its work.
+
+\subsection{Object collecting}
+After the bluetooth connection has been established, it is possible to send commands from the master brick to the slave brick. The object collection function is started by the \emph{CallCollectionUnit} method. This starts the \emph{RunCollectUnit()} function, which is run by the slave brick, starting with the claw grabbing the object, the arm moving towards the storage and stopping when it is above it. Then the claw releases the object and go halfway back towards the original position. When it is halfway down it slows down the arm, which increases the motor precision and therefore is able to stop at the exact position instead of a few angles above or below. 
+
+\subsection{Boundary detection}
+An important module in the \projname{} is the boundary detection. This is done using two colour sensors. These colour sensors must constantly be pinged, to ensure that they are functioning and ready to provide RGB values. This procedure runs constantly in the background tasked, as described in \secref{sec:task-events-alarms}.
+
+After this, the colour sensors can be used to check the values of the environment, searching for the RGB values associated with the black tape. These RGB values were found when performing the hardware test, described in \secref{sec:colour_sensor}. All these values are defined in the program. There is an \emph{EXTENDED\_RANGE} variable that is applied to all of the minimum and maximum values, to make up for uncertainties. 
+
+Then the values are obtained from the sensors to see whether or not they fit the description of the black tape RGB values. If they do, appropriate commands are performed. The check is run constantly in a loop. The check basically consist of the following: $BlackTapeColourMinValue \leq SensorValue \leq BlackTapeColourMaxValue$, for the colours red, green and blue, for each of the colour sensors. 
+
+\subsection{Objects outside the environment}
+But what happens when the \projname{} has detected object outside of the environment and tries to collect these? First of all, when the \projname{} drives towards an objects, and the boundary has been met, the first thing that happens is that the \projname{} drives approximately 15 cm backwards to avoid the black boundary and then make a small turn until the spotted object is no longer in sight. It will then continue its normal 360 degree search and be able to spot new objects again.
+

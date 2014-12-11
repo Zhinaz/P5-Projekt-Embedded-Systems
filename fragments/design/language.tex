@@ -1,0 +1,37 @@
+\section{Operating system and programming language} \label{sec:os_and_proglanguage}
+Since the LEGO Mindstorm NXT was chosen as the platform for the prototype robot, it puts some limitations on the choice of OS and programming language. It is required to use an OS that is supported by the NXT Intelligent Brick and the programming language must furthermore be supported by the chosen OS on the NXT brick.
+
+A few different OSes were considered for the \projname{}. The default NXT firmware IDE allows for simple drag-and-drop programming in the accompanying LEGO NXT-G software, for creating simple sample robots quickly. Another IDE called BricxCC, also used with the default firmware, uses the programming language Not eXactly C (NXC) and Next Byte Codes (NBC). NXC is a high-level open-source language similar to the C language, build on the NBC compiler. 
+
+%BricxCC \citep{bricxcc} is an Integrated Development Environment (IDE) for programming LEGO NXT robots on the default firmware. BricxCC includes support for programming the LEGO Mindstorms NXT brick using the programming languages Not eXactly C (NXC) and Next Byte Codes (NBC). NBC is a simple open-source language with an assembly language syntax, and NXC is a high-level open-source language similar to C, built on the NBC compiler.
+
+The default firmware and the supported programming languages and tools associated, allows for programming both simple and more advanced robots. However it is still more restrictive than some of the alternatives. Because of this, it was decided to look at a couple of custom firmwares.  
+
+One of the considered custom firmwares was leJOS NXJ, that uses the programming language Java. The leJOS NXJ OS contains a tiny Java virtual machine to execute the code \citep{lejos}. It also includes all classes in the NXJ API \citep{nxj} as well as all the tools needed to upload programs to the NXT brick. This implies that, had this OS been chosen, the source code of this project would be written in Java and then apply Java methods to invoke the API.
+
+Another of the considered firmwares is nxtOSEK. nxtOSEK is a hybrid between the device drivers of leJOS NXJ, the TOPPERS/ATK Kernel, and the TOPPERS/JSP Real-Time OS, along with further code to make these work together. It supports programming in ANSI C/C++ using GCC (GNU ARM) and contains a C and C++ API for the NXT sensors and motors. The C and C++ API calls are available through ECRobot, that extends the C++ language with the necessary commands to manipulate the LEGO NXT hardware~\citep{nxtosek, toppers_atk, toppers_jsp, nxtOSEK2, nxtosek_api}.
+
+nxtOSEK includes a variety of useful features. Like leJOS it contains all the tools needed to upload programs to the NXT brick. It is possible to use the Eclipse CDT IDE to write and compile programs and upload them to the NXT brick. It supports multithreading and real-time multi tasking features provided by TOPPERS, and more importantly for the \projname{}, events are also supported. It supports Bluetooth connections, both from the brick to PC and from NXT Brick to NXT Brick. Furthermore, connecting a brick to the PC through Bluetooth, R/C and Data Logging features is provided by the NXT Gamepad.
+
+The C/C++ languages were favoured over Java and were the main reason why nxtOSEK was chosen over leJOS.
+
+
+
+
+
+
+
+
+
+%The default firmware and the supported programming languages and tools associated, allows for programming both simple and more advanced robots. However it is still more restrictive than some of the alternatives. Because of this, it was decided to look at a couple of custom firmwares. One of the considered custom firmwares was leJOS. The leJOS NXJ \citep{lejos} OS contains a tiny Java virtual machine to execute the users code. It also includes all classes in the NXJ API \citep{nxj} as well as all the tools needed to upload programs to the NXT brick. It supports programming in an object-oriented language, Java. This implies that, had this OS been chosen, the source code of this project would be written in Java or a similar language that can be compiled to Java bytecode and then apply Java methods to invoke the API.
+
+%The last of the considered OSes, which also was the one chosen for this project, was nxtOSEK. nxtOSEK \citep{nxtosek} is a hybrid between the device drivers of leJOS NXJ, the TOPPERS/ATK \citep{toppers_atk} Kernel, and the TOPPERS/JSP \citep{toppers_jsp} Real-Time OS, along with further code to make these work together. It supports programming in ANSI C/C++ using GCC (GNU ARM) and contains a C and C++ API for the NXT sensors and motors. The C and C++ API calls are available through ECRobot, described in \secref{subsec:ecrobot}. These languages were favoured over Java and were the main reason why nxtOSEK was chosen over leJOS.
+
+%nxtOSEK includes a variety of useful features. Like leJOS it contains all the tools needed to upload programs to the NXT brick. It is possible to use the Eclipse CDT IDE to write and compile programs and upload them to the NXT brick. It supports multithreading and real-time multi tasking features provided by TOPPERS, and more importantly for the \projname{}, events are also supported. It supports Bluetooth connections, both from the brick to PC and from brick to brick (one NXT to another NXT). This means that two NXT bricks can communicate with each other and be used in a master-slave relationship. Furthermore, connecting a brick to the PC through Bluetooth, R/C and Data Logging features is provided by the NXT Gamepad.
+
+%\subsection{ECRobot} \label{subsec:ecrobot}
+%Along with the nxtOSEK firmware comes the ECRobot API. This extends the C++ language with the necessary commands to manipulate the LEGO NXT hardware. The ECRobot C API was originally developed for a MATLAB Model-Based Design environment for the first LEGO Mindstorm NXT release. With the release of LEGO NXT 2.0 a ECRobot C++ API was developed. The update from C to C++ took the ECRobot from a structured imperative API to an object oriented API, which allowed the different motors and sensors to be sorted into device classes~\citep{nxtosek_api}.
+
+
+
+%control the motors and different input sensors.

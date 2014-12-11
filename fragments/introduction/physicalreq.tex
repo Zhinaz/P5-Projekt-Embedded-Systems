@@ -1,0 +1,24 @@
+\section{Physical requirements} \label{sec:physical_requirements}
+This sections describes the physical requirements that the \projname{} should be able to accomplish. The system's requirements are reflections of the real-life requirements that would allow a similar system to function properly. 
+
+\subsection{Driving}
+In order to move around the environment, the robot must be able to drive itself forward and backwards. This is an obvious requirement, however there are numerous non-obvious challenges associated to this. The wheels used must be able to support the frame of the robot while keeping it stable, as well as being able to move straight at an equal speed on a number of surfaces with different friction.
+
+\subsection{Braking}
+A requirement of \projname{} is that it should be able to stay within a specified environment. To complete this goal, the robot must be able to brake, to keep itself from overstepping the boundary. Furthermore, as the \projname{} encounters an object, it should be able to stop itself within the correct distance to be able to collect it.
+
+\subsection{Turning}
+If the robot is to explore the entirety of the environment, it must be able to turn. It should also be able to turn with at least some precision, since this allows the robot to make reasonable assumptions about its position relative to the environment. 
+
+\subsection{Collecting unit and storage}
+The robot must be able to collect objects within a given environment. When a collectible object is encountered, the robot must stop to collect it. The collecting unit picks up the object and the robot stores it within itself and continue to search for more objects to collect. This presents some challenges for the construction of the collecting unit and the robots storage capacity.
+
+The collection unit must be strong enough to pick up objects and place these in the robots storage. The collectible objects can be of varying sizes, which the collection unit must also support. It is required that the collection unit must be able to support picking up objects with a weight of maximum 150-200g and dimensions of 6x6x6cm for square objects and a diameter of 6-7cm for cylinder objects.\fxnote{hvor har vi de tal og vægte fra?}
+
+Another requirement is for the robot to have some place to store the collected objects. The storage is located on the robot itself. The storage capacity of the robot must be sufficiently large to contain multiple objects of the given dimensions. The robot must furthermore be solid enough to support the extra weight of the collected objects. 
+
+%In this project, this environment consists of a flat plane, with the boundaries marked.
+%It should also be able to somehow get itself back inside the environment, should it accidentally leave it.
+%If it cannot turn precisely, calculating positions in the environment gets hard.
+%such that the collecting unit places the picked up objects within this storage, and the robot drives around the environment with the collected objects. 
+%Also, if an object is detected in a position in which the robot cannot immediately collect it, it should be able to manoeuvre itself closer and collect it.

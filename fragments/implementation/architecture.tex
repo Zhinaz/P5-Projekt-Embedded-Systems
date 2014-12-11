@@ -1,0 +1,52 @@
+\section{Architecture} \label{sec:architecture}
+This section focuses on the architecture of the program. Firstly, tasks, events, and alarms used in the \projname{} are discussed. Then follows a number of sequence diagrams, that outlines the function of each task. 
+
+
+\subsection{Tasks, events, and alarms} \label{sec:task-events-alarms}
+This section focuses on the tasks, events, and alarms used in the \projname{}. These are all declared in an OSEK Implementation Language (OIL) specification. All the static declaration of system objects are specified in the OIL file. The OIL specification and the code makes up the program~\citep{nxtOSEK2}. The following subsections focuses on tasks, events, and alarms, what they are and how they are used in the \projname{}.
+
+\subsubsection{Tasks} \label{sec:tasks}
+nxtOSEK utilises task to control the program execution, where it is possible to have multiple tasks in one program. There is always a main task from which the primary code is executed. Another common task is one that ensures that certain sensors keeps doing their job. For example if the robot is equipped with colour sensors, the tasks will have to keep pinging the colour sensors which will keep them activated. This sort of task will have to follow a clock to ensure that there is always the same amount of time between each ping to the colour sensor. Each task must be declared in the OIL file. \lstref{lst:taskexample} shows an example of a task declaration, from the \projname{} project. 
+
+\begin{lstlisting}[caption= An example of a task used in the \projname{}, label=lst:taskexample]
+TASK MainTask
+{
+    AUTOSTART = TRUE { APPMODE = appmode1; };
+    PRIORITY = 2;
+    ACTIVATION = 1;
+    SCHEDULE = FULL;
+    STACKSIZE = 512;
+    EVENT = EventMainTask;
+    EVENT = EventSleep;
+    EVENT = EventSleepI2C;
+};
+\end{lstlisting}
+
+The \projname{} contains two tasks, the Main task as shown in \lstref{lst:taskexample} and the Background task. The Main task contains the primary controls and states of the robot, all within a while loop that keeps the robot going. The Background task is constantly running and it has two assignments. It keeps pinging the colour sensor for a colour to keep them active. Secondly it waits for the slave brick to respond that it is done collecting an object, see \secref{sec:imp-procedure}. Every time the Main task loops an event will ensure that the background task is executed.
+
+\subsubsection{Events} \label{sec:events}
+An event, is a trigger, that activates when a certain condition has been met. In nxtOSEK, events can be triggered by an alarm or by signalling the event in the program. An example of an event can be seen in \lstref{lst:eventexample}. The event only has a single attribute, a MASK. This is an integer number, which can be assigned by using AUTO or by manually assigning a number using hexadecimal. The MASK is used to reference the event~\citep{osekoil}. 
+
+\begin{lstlisting}[caption= An example of a task used in the \projname{}, label=lst:eventexample]
+EVENT EventMainTask
+{
+    MASK = AUTO;
+};
+\end{lstlisting}
+
+\subsubsection{Alarms} \label{sec:alarms}
+The alarm can be used for a few tasks; activate a task, trigger an event or activate an alarm-callback routine. The alarm is run on a counter, and when this counter has been met, the associated action is performed. An example of an alarm can be seen in \lstref{lst:alarmexample}. The alarm has a few attributes, first there is a COUNTER assigning, where a counter is associated with the alarm. Then the ACTION attribute is set, by describing what ACTION is performed, when the alarm has met its goal. The last attribute is the AUTOSTART attribute, that describes if the alarm action should be triggered at program start~\citep{osekoil}.
+
+\begin{lstlisting}[caption= An example of a task used in the \projname{}, label=lst:alarmexample]
+ALARM AlarmMainTask
+{
+    COUNTER = SysTimerCnt;
+    ACTION = SETEVENT
+    {
+        TASK = MainTask;
+        EVENT = EventMainTask;
+    };
+    AUTOSTART = FALSE;
+};
+\end{lstlisting}
+

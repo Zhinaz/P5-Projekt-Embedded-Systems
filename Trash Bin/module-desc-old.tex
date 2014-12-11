@@ -1,0 +1,327 @@
+\section{Module description} \label{sec:module-description}
+
+This section contains a description of the \projname{}s individual modules, their respective functions, and how they are programmed.
+
+%\subsection{Movement}
+%The robot has several functions to control its movement. These functions were made to increase the readability and writability of the program.
+
+%\subsubsection{Motor adjusting}
+%Due to the motors not having the exact same strength and therefore not running at the same speed, as seen from the test in \secref{sec:servo_motor}. A function to ensure that the speed level of the motors are equal is required. The \emph{SpeedAdjuster()} takes the speed set by the programmer and returns the value for the second slower motor. The function can be seen in \lstref{lst:speedadjuster}. 
+
+%\begin{lstlisting}[caption= Adjusts the speed of \emph{a} according to \emph{b}, label=lst:speedadjuster]
+%int SpeedAdjuster(int b)
+%{
+%    int a = 0;
+%
+%    if(b <= 40){
+%        a =  static_cast<int>(b * 1.107);
+%    }
+%    if(b <= 50 && b > 40){
+%        a =  static_cast<int>(b * 1.083);
+%    }
+%    if(b <= 60 && b > 50){
+%        a =  static_cast<int>(b * 1.068);
+%    }
+%    if(b <= 70 && b > 60){
+%        a =  static_cast<int>(b * 1.063);
+%    }
+%    if(b <= 80 && b > 70){
+%        a =  static_cast<int>(b * 1.041);
+%    }
+%    if(b <= 90 && b > 80){
+%        a =  static_cast<int>(b * 1.032);
+%    }
+%    if(b <= 100 && b > 90){
+%        a =  static_cast<int>(b * 1.014);
+%    }
+%    return a;
+%}
+%\end{lstlisting}
+
+%\subsubsection{Basic movement}
+%To move the robot forward and backward a simple function has been made. With this it is only necessary to input one variable to decide the power for both motors. As the \projname{} uses gearing, running the motors forward makes the \projname{} drive backward. This is handled by adding a direction as function parameter, as seen in \lstref{lst:moveforwards}. 
+
+%\begin{lstlisting}[caption= Moves both motors at the same speed after \emph{a} being adjusted, label=lst:moveforwards]
+%void Move(int b, direction d)
+%{
+%	int a = SpeedAdjuster(b);
+%	
+%	if (d == forward)
+%	{
+%		a = -a;
+%		b = -b;
+%	}
+%	
+%	motorL.setPWM(a);
+%	motorR.setPWM(b);
+%}
+%\end{lstlisting}
+
+%\subsubsection{Turning}
+%Using the tank tracks ensures that the \projname{} can turn in its place, by move the first motor forwards and the second one backwards. The turning function can be seen in \lstref{lst:startturning}. As seen other than the power value, the function \emph{StartTurning} takes a direction, an ensures that the motors drive that way. 
+
+%\begin{lstlisting}[caption= Turns to the right at a given power, label=lst:startturning]
+%void StartTurning(int b, searchDirection sd)
+%{
+%	int a = SpeedAdjuster(b);
+%	
+%	if (sd == left) // Turns the robot to the left
+%	{
+%		motorL.setPWM(a);
+%		motorR.setPWM(-b);
+%	}
+%	else // Turns the robot to the right
+%	{
+%		motorL.setPWM(-a);
+%		motorR.setPWM(b);
+%	}
+%}
+%\end{lstlisting}
+
+%\subsubsection{Stop all movement}
+%To stop the robot there are two functions as well. The first function sets the power of both motors to zero which stops the robots movement completely. 
+
+%\begin{lstlisting}[caption= Stop both motors immediately, label=lst:stopmotors]
+%void StopMotors()
+%{
+%	motorA.setPWM(0);
+%	motorB.setPWM(0);
+%}
+%\end{lstlisting}
+
+%The second function, \emph{StopTurning()}, is used to stop the robot when it is doing it 360 degrees search. It sets the variable \emph{isFullSearching} to false which tells the robot that an object has been spotted. After that the robot will initiate its pick-up phase.
+
+%\begin{lstlisting}[caption= Disables the 360 degrees search and stop both motors, label=lst:stopturning]
+%void StopTurning()
+%{
+%	isFullSearching = false;
+%	StopMotors();
+%}
+%\end{lstlisting}
+
+
+
+%\subsection{Scanning}
+%The ultra sonic sensor is always scanning except for when the claw is currently grabbing and storing an object. This allows the \projname{} to find objects when it is moving around and during turns.
+
+%The \emph{ScanForObject()} function checks whether or not an object is within range of the maximum search distance and if there is an object within the grabbing distance. The maximum search distance is set to avoid technical problems with the sensor and to avoid spotting objects out of the preset border.
+
+%\begin{lstlisting}[caption= Determines the next action based on the distance of the object spotted, label=lst:scanforobject]
+%int ScanForObject()
+%{
+%	int distance = sonar.getDistance();
+%	
+%	if(distance > min_distance && distance < max_distance)
+%	{
+%		return 1;
+%	}
+%	else if(distance <= grab_distance)
+%	{
+%		return 2;
+%	}
+%	else
+%	{
+%		return 0;
+%	}
+%}
+%\end{lstlisting}
+
+
+\subsection{Bluetooth}
+
+The communication module lets the master and slave unit communicate with each other and transmit values used to determine which operation to perform next. In order to make Bluetooth work, some commands and statements must be executed, which can be seen in \lstref{lst:bluetoothconnection}. First, the necessary initialisations and assignments are required. Then some variables associated with the slave brick is needed in order to establish a connection, which is performed at line 10. 
+
+\begin{lstlisting}[caption= Bluetooth connection initialization, label=lst:bluetoothconnection]
+#include "Bluetooth.h"
+#include "BTConnection.h"
+...
+Bluetooth bt;
+BTConnection btConnection(bt, lcd, nxt);
+...
+static const CHAR* PASSKEY = "1234";  // Password for the slave brick
+static const U8 BD_ADDRESS[7] = { 0x00, 0x16, 0x53, 0x0F, 0xAC, 0x19, 0x00 }; // MAC address for the slave brick
+...
+btConnection.connect(PASSKEY, BD_ADDRESS);  // Starts by establishing a bluetooth connection between the two bricks
+\end{lstlisting}
+
+When the connection has been established, is is possible to communicate between the two bricks. From the master unit, the \emph{CallCollectionUnit()} method sends a message to the slave unit. This message tells the slave unit to start the collection process. In the meantime the master unit sits in a while loop and wait for a response from the slave unit, telling it that the unit has been collected and that the master unit can continue its work.
+
+\begin{lstlisting}[caption= Send a message from the master unit to the slave unit, label=lst:callcollectionunit]
+// Send signal to slave unit and wait for feedback
+void CallCollectionUnit()
+{
+	BTWait = true;
+	StopMotors();
+	U8 data = 49; // utf-8 code according to the number 1, which the slave-brick
+	bt.send(&data, 1); // receives and commences. The slave-brick only responds to 1
+}
+\end{lstlisting}
+
+Once the command to the slave unit has been sent, the main task is not permitted to run, and the secondary task is extended to check for the signal from the slave brick. As seen in \lstref{lst:callcollectionunit}, the bool BTWait is set to true. This variable then makes the while loop check for signal, in the code from \lstref{lst:secondarytask}
+
+\begin{lstlisting}[caption= Secondary task and the check for signal from the slave brick, label=lst:secondarytask]
+TASK(Task1)
+{
+	SetRelAlarm(AlarmTask2, 1, 85);
+	while (1)
+	{
+		colourL.processBackground(); // communicates with NXT Color Sensor (this must be executed repeatedly in a background Task)
+		colourR.processBackground();
+		while (BTWait == true)     // Continuously check for response from the slave brick, if a signal has been sent out. 
+		{
+			rx_len = bt.receive(buf, 0, Bluetooth::MAX_BT_RX_DATA_LENGTH);
+			if(rx_len > 0 && buf[0] == 49)
+			{
+				buf[0] = 0;
+				BTWait = false;
+				ObjectCollected++;
+			}
+		}
+	}
+}
+\end{lstlisting}
+
+
+\subsection{Object collecting}
+After the bluetooth connection has been established, it is possible to send commands from the master brick to the slave brick. The object collection function is started by the \emph{CallCollectionUnit} method, seen in \lstref{lst:callcollectionunit}. This starts the \emph{RunCollectUnit()} function. This happens in steps, \emph{Step}, starting with the claw grabbing the object, the arm moving towards the storage and stopping when it is above it. Then the claw releases the object and go halfway back towards the original position. When it is halfway down it slows down the arm, which increases the motor precision and therefore is able to stop at the exact position instead of a few angles above or below. 
+
+%\begin{lstlisting}[caption= Operate the claw and arm to store an object, label=lst:runcollectunit]
+%// Code from the slave unit
+%void RunCollectUnit(Clock clock)
+%{
+%	int Step = 1;
+%	while(Step > 0)
+%	{
+%		// If sensor gets input, close the claw and move arm.
+%		if (Step == 1)
+%		{
+%			motorClaw.setPWM(100);
+%			clock.wait(500);
+%			motorClaw.setPWM(45);
+%			clock.wait(500);
+%			motorArm.setPWM(65);
+%			Step = 2;
+%		}
+%		// When arm is hovering over bin, release the claw.
+%		if(Step == 2 && motorArm.getCount() >= 680)
+%		{
+%			motorArm.setPWM(0);
+%			clock.wait(1500);
+%			motorClaw.setPWM(-60);
+%			clock.wait(200);
+%			motorClaw.setPWM(0);
+%			clock.wait(700);
+%			motorArm.setPWM(-50);
+%			Step = 3;
+%		}
+%		// Slow down the arm making the last distance smoother.
+%		if(Step == 3 && motorArm.getCount() <= 175)
+%		{
+%			motorArm.setPWM(-20);
+%			Step = 4;
+%		}
+%		// Reset the claw and arm and send signal back to the master brick
+%		if(Step == 4 && motorArm.getCount() <= 10)
+%		{
+%			motorClaw.setPWM(0);
+%			motorArm.setPWM(0);
+%			Step = 0;
+%			
+%			U8 data = 49;
+%			bt.send(&data,1);
+%		}
+%		clock.wait(100);
+%	}
+%}
+%\end{lstlisting}
+
+
+\subsection{Boundary detection}
+An important module in the \projname{} is the boundary detection. This is done using two colour sensors. These colour sensors must constantly be pinged, to ensure that they are functioning and ready to provide RGB values. This is done with a background process, which can be seen in \lstref{lst:secondarytask} at line 6 and 7. 
+
+After this, the colour sensors can be used to check the values of the environment, searching for the RGB values associated with the black tape. These RGB values were found when performing the hardware test, described in \secref{sec:colour_sensor}. All these values are defined in the program. The extendedRange function is to make up for uncertainties. 
+
+Then the values are obtained from the sensors to see whether or not they fit the description of the black tape RGB values. If they do, appropriate commands are performed. The check is run constantly in a loop. The check basically consist of the following: $BlackTapeColourMinValue \leq SensorValue \leq BlackTapeColourMaxValue$, for the colours red, green and blue, for each of the colour sensors. 
+
+%\begin{lstlisting}[caption= Boundary detection, label=lst:boundarydetection]
+%// Values to make sure the colour sensor detects the black tape
+%#define extendedRange 40
+%// Example of the defined values
+%#define rightRedMin 	(157 - extendedRange)
+%#define rightRedMax 	(178 + extendedRange)
+%// Followed by the rest of the declarations
+%...
+%
+%S16 rRGB[3], lRGB[3]; // Save array for the colour sensor raw RGB values
+%...
+%
+%colourL.getRawColor(rRGB);
+%colourR.getRawColor(lRGB);
+%
+%if ((rRGB[0] >= rightRedMin) && (rRGB[1] >= rightGreenMin) && (rRGB[2] >= rightBlueMin) && (rRGB[0] <= rightRedMax) && (rRGB[1] <= %rightGreenMax) && (rRGB[2] <= rightBlueMax))
+%{
+%	// Appropriate actions ...
+%}
+%
+%else if ((lRGB[0] >= leftRedMin) && (lRGB[1] >= leftGreenMin) && (lRGB[2] >= leftBlueMin) && (lRGB[0] <= leftRedMax) && (lRGB[1] <= %leftGreenMax) && (lRGB[2] <= leftBlueMax))
+%{
+%	// Appropriate actions ...
+%}
+%\end{lstlisting}
+
+
+
+%\subsection{360 degree object search}
+
+%At the start of the \projname{}'s initiation, but after the necessary variable instantiation and Bluetooth connection creation, the \projname{} makes a 360\textdegree ~turn. This turn is used to pinpoint the location of objects close to the \projname{}. The 360 object search can be seen in \lstref{lst:360degreesearch}. 
+
+%First, it is necessary to ensure that it is precisely a 360\textdegree ~turn, that is performed, otherwise the angles to the objects might be incorrect. For each object, the first time the ultrasonic sensor find an object, an angle and a distance is saved. As the \projname{} keeps turning, the time when the object is out of sight, another angle is saved. These two angles is used to get an average of where the object might be. The ultrasonic sensor detects objects in a cone, making it complicated to get the exact angle to the object. 
+
+%In addition, the second angle is recorded when the object is out of sight, meaning that it gets a few degrees wrong. The ultrasonic have a delay before it can provide values new values. During this time, the \projname{} turns a few degrees, providing a wrong value. The correct angle, or a closer approximation of a correct angle, is obtained by subtracting a few degrees. 
+
+%This procedure might be needed multiple times to ensure that all objects in the environment has been found. 
+
+%\begin{lstlisting}[caption= 360 degree search, label=lst:360degreesearch]
+%StartTurning(motorSpeed, right);
+%motorStopValue = DegreesToSteps(360); 
+%
+%// This loop adds all the objects to an array, along with their distance and angle from the start position.
+%while (motorR.getCount() <= motorStopValue && motorL.getCount() <= motorStopValue)
+%{
+%	WaitEvent(EventMainTask);
+%	ClearEvent(EventMainTask);
+%	
+%	distanceToObject = sonar.getDistance();
+%	
+%	if (sameObjectInSight == false && min_distance < distanceToObject && distanceToObject < max_distance)
+%	{
+%		Objects[objectNumber].distance = distanceToObject;
+%		objectFirstAngle = motorR.getCount();
+%		sameObjectInSight = true;
+%	}
+%	if (sameObjectInSight == true && (min_distance > distanceToObject || distanceToObject > max_distance))
+%	{
+%		objectSecondAngle = motorR.getCount() - DegreesToSteps(10);  
+%		Objects[objectNumber].angle = (objectFirstAngle + objectSecondAngle) / 2;
+%		sameObjectInSight = false; 
+%		objectNumber++; 
+%	}
+%
+%	distanceToObject = 0;
+%}
+%
+%StopMotors();
+%\end{lstlisting}
+
+%\subsection{Stepwise rotation search}
+%If the object i accidentally lost, perhaps due to imprecise angle or faulty values from the ultrasonic sensor, then the \projname{} utilises a stepwise rotation search. This search consist of turning a little bit to the right, then to the left and back to the starting position. During this search, the ultrasonic sensor continues to see if an object is present. If the first step did not find any objects, then the turning value is increased. When the object has been found again, the \projname{} drives towards it. 
+
+\subsection{Objects outside the environment}
+
+But what happens when the \projname{} has detected object outside of the environment and tries to collect these? The code shown in \lstref{lst:objectsoutsideboundary}, concerns with this problem. First of all, when the \projname{} drives towards an objects, and the boundary has been met, the first thing that happens is that the \projname{} drives backwards a few cm. 
+
+\begin{lstlisting}[caption= Object navigation, label=lst:objectsoutsideboundary]
+// Something something something darkside
+\end{lstlisting}
+
+

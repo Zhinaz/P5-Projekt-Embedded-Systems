@@ -1,0 +1,7 @@
+%The motor controller is split up into two parts: one part for rotation and one part for moving forward and backward. Both part have a function for adjusting the speed and stop the motors on the target angle or step. Only the code for the moving forward and backwards is include in this section, as the code only has small differences.
+
+%The code in \lstref{lst:speed-adjuster1of2} shows the first part of the function to adjust the speed when the robot is moving forward and backwards. This part calculates the min and max steps, that both motors has to be inside. The if-else check ensures that the speed is not set too low or high, else provides a minimum or maximum value for the motors. 
+
+%The second part of the speed adjust code is shown in \lstref{lst:speed-adjuster2of2}. Line 1 checks if the current number of steps for the left motor is inside the min/max range. If that is the case, then the speed adjuster does nothing, and returns the current speed. If the amount of steps is outside the min/max range, line 5 and 16 checks whether the speed should be increased or decreased. 
+
+%\lstref{lst:motor-controller} shows the function to check whether or not the \projname{} has reached the targeted amount of steps. Line 9 and 14 checks which way the \projname{} must move in order to reach the target. If the target is reached the else at line 19 stops the motors.

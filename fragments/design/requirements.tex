@@ -1,0 +1,35 @@
+\section{Requirement specification} \label{sec:requirement_specification}
+
+The final version of \projname{} is an autonomous robot that is able to navigate within a marked environment. Within this environment it is able to locate and collect various objects and store them.
+
+\subsection{Requirements}
+
+\projname{} has the following physical features:
+
+\begin{itemize}
+    \item \textbf{Tank treads}\\
+        Instead of wheels, the \projname{} is equipped with tank treads. This allows the robot to turn around its own axis while not moving away from the position. The tank treads provides the \projname{} with a better grip on a multitude of surfaces.
+    \item \textbf{Robotic arm to collect objects}\\
+        Consisting of 2 servo motors, this arm has two moveable joints: one to move the arm itself from the front of the \projname{} where it is mounted to the back, and one to control the claw that grabs hold of objects.
+    \item \textbf{Sensors to detect objects, environment boundaries and the heading of the robot}\\
+        Two colour sensors, one in each front corner, one distance sensor, mounted on the robotic arm on the front, and a compass sensor mounted at least 15cm from the motors, 10cm from the bricks, horizontal, and stable.
+    \end{itemize}
+    
+The \projname{} is able to perform the following actions:
+
+    \begin{itemize}
+    \item \textbf{Navigate the environment within the boundaries}\\
+        The robot is able to move around within the environment, as described in \secref{sec:delimitation}, while searching for objects to collect. If it encounters a boundary, it is able to navigate itself back and find a new direction.
+    \item \textbf{Control collection arm to pick up and store objects of specified size}\\
+        When an object is detected in the correct position, the \projname{} is able to pick it up and store it, using its motorised arm and claw.
+    \item \textbf{Find and collect all objects within reasonable time}\\
+        The \projname{} is able to find, collect and store all objects within the environment within the time limit set in \secref{sec:model}.
+\end{itemize}
+
+\subsection{Testing}
+The robot and its functions were tested in various different stages. As in the implementation procedure, the functions were tested individually. The individual functions were then combined one by one while being tested simultaneously, until the robot was fully assembled. The first round of tests can be seen in \secref{sec:hardware} while the final overall test can be found in \charef{cha:quality-assurance}. 
+
+
+
+
+%The final version of \projname{} will consist of a set of tank treads for movement and navigation, a movable arm with a functional claw for grabbing objects, a colour sensor to detect the border of the environment, and a storage container on the back for storing the collected objects. The robot's LEGO components and their functionality can be found in \secref{sec:functionality_description}. The robot will be able to navigate within the environments boundaries and find objects which it will collect and store in its container.

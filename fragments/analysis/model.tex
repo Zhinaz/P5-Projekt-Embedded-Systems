@@ -1,0 +1,95 @@
+\section{Modelling the problem} \label{sec:model}
+
+When constructing autonomous robots like the \projname{}, a few techniques exist to model the robots known world. It is also important to know what exactly makes an autonomous robot, autonomous. In order for a robot to be autonomous it should be able to make decisions based on the current state the robot is in, previous experiences, and according to the goals that need to be accomplished~\citep{artificialintelligencebook}. 
+
+\begin{figure}[H]
+     \center\frame{{\includegraphics[scale=0.5]
+     {graphics/AgentModel.pdf}}}
+     \caption{\label{fig:model_mi_agent} An agent in an environment.}
+\end{figure}
+
+\figref{fig:model_mi_agent} shows an agent, something that acts in an environment, what prior knowledge this agent has and what actions the agent can do to interact with the environment. The \projname{} has the following capabilities:
+
+\begin{description}
+\item[Abilities] Abilities are the actions the agent can use to interact with the world. The \projname{} is able to move around the environment by driving forwards, backwards and turning. It can sense objects and detect the environment boundaries. It is also able to pickup objects and place these into the attached storage container.  
+\item[Goals/Preferences] Goals are the objectives that the agent must complete. The \projname{} should be able to collect all the objects inside the environment within reasonable time. In this project reasonable time is defined to 1 minute per object \fxnote{Opdater forventet tid for robotten}. Preferences are rules for which action the robot performs, if two different actions are available and neither necessarily moves it closer to the goal. For instance, which way the robot should turn when it encounters a boundary.
+\item[Prior knowledge] The robot will not have any knowledge about the environment beforehand. Other than the programmed logic, it will only know how many objects to collect before halting.
+\item[Observations] Knowledge about the current environment. This is obtained by sensors and knowledge of how far the \projname{} has driven. 
+\item[Past experiences] Knowledge about how many objects has been collected. 
+\end{description}
+
+There is a thin line between prior knowledge and past experience. The difference is that prior knowledge is information that has been hard coded into the robot, while past experience is something it has learnt by itself. The only past experience \projname{} is collecting is how many objects it has found so far. If it had kept knowledge about previous runs and used it to try and find the new objects faster, it would have been machine learning, which is not a part of this project.
+
+In order for the robot to understand the world, it must contain a suitable representation. There are three different ways to represent a world - State based, feature based and relational~\citep{artificialintelligencebook}. Each of these are shortly discussed and the most suitable is used to model the problem. 
+
+\begin{description}
+\item[State-based] In a state-based representation, each state represents a possible model of the world. If the environment were to be described in a state-based representation, where things like the boundary, location of the robot, and where the objects are placed, a lot of states would be needed to provide the necessary information to describe the world this way. The world should also be big enough to precisely place the objects and contain the space in between these. This would require a tremendous amount of states to describe, this way. 
+
+
+\item[Feature-based] In a feature-based representation, every state can be described in terms of features, where a feature has a value in each state. The entire environment can be represented with a two-dimensional array, in the feature based representation. Each point describes a spot in the environment, where either an object is located, boundary is spotted, or if nothing is in that spot. The feature based representation fits the \projname{} well. 
+\item[Relational] A relational representation deals with relational descriptions in terms of individuals and relations among them. This can be used to describe states of individuals or their position compared to others. 
+\end{description}
+
+
+
+For the \projname{}, a feature-based representation suits the project best. The positions of objects, as well as other features such as the number of objects previously collected, are well represented in a feature-based model. 
+
+\fxnote{Vi skal finde ud af hvad state vi har gang i}
+
+
+
+
+
+
+
+
+
+%\begin{description}
+%\item[State-based] In a state-based representation, each state represents a possible model of the world. If the environment were to be described in a state-based representation, things like the boundary, where the robot is, and where the objects are placed, would be needed to provide the necessary information. The world should also be big enough to precisely place the objects and contain the space in between these. This would require a tremendous amount of states to describe, making a state-based representation not suited for the \projname{} project.
+%\item[Feature-based] In a feature-based representation, every state can be described in terms of features, where a feature has a value in each state. The entire environment can be represented with a two-dimensional array, in the feature based representation. Each point describes a spot in the environment, where either an object is located, boundary is spotted, or if nothing is in that spot. The feature based representation fits the \projname{} well. 
+%\item[Relational] A relational representation deals with relational descriptions in terms of individuals and relations among them. This can be used to describe states of individuals or their position compared to others. 
+%\end{description}
+
+%For the \projname{}, a feature-based representation suits the project best. The positions of objects, as well as other features such as the number of objects previously collected, are well represented in a feature-based model. 
+
+
+
+
+% A State-based model of a world, that consist of a grid, would require a tremendous amount of states. And each state would need the informatation about every single point in the entire grid. \fxnote{Gerne lidt udregninger med tal}
+
+% Feature-based is essentially a grid, where each coordinate has an x- and y-value and another value to tell whether there is nothing in that coordinate, is an object, or if it in the environment boundary. This map can be implemented as a two-dimensional array in c++. \fxnote{Her ville det være meget nemmere hvis map var kvadratisk}. 
+
+% Beskrivelser af algorithmer osv til at finde rundt i environmentet.
+
+
+% Noter sager
+
+%Inputs:
+%Sensor input (3x Ultrasonic, 2 Color)
+%
+%Output:
+%Motor control (wheels, claw)
+
+%Dimensions of Complexity
+%
+%Modularity:
+%Flat
+%
+%Planning Horizon:
+%Non-planning
+%
+%Domain uncertainty:
+%Partially observable, stochastic
+%
+%Preferences:
+%Achievement goals, cardinal preferences
+%
+%Number of agents:
+%Single agent
+%
+%Learning:
+%Knowledge given at design time
+%
+%Computational limits:
+%Bounded rationality
+

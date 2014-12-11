@@ -1,0 +1,41 @@
+\section{Robot behaviour} \label{sec:robot_behaviour}
+This section contains a short description of all the available states for the \projname{}. These states are used to determine what process the robot is currently in and to ensure that the robot is always doing as expected.
+
+\begin{description}
+\item[Start searching for object] \hfill \\
+When the robot is started it will be initialised to this state. In this state the motor settings will be configured for rotating using the default motor speed. After that the \projname{} change state to \emph{Searching for object}.
+
+\item[Searching for object] \hfill \\
+In this state the \projname{} continue searching to the right until it finds an object. From this state the robot can go to three different possible states based on the ultrasonic sensor and colour sensors. The ultrasonic sensor always runs in a background task and based on the value form the sensor the \projname{} change state to \emph{Start moving to object}, \emph{Collecting object} or continue in \emph{Searching for object}. If the \projname{} detects black lines the robot will change state to \emph{Start avoiding black line}.
+
+\item[Start avoiding black line] \hfill \\
+\emph{Start avoiding black line} configured the motor settings for moving backward. After that the \projname{} change state to \emph{Avoiding black line}. 
+
+\item[Avoiding black line] \hfill \\
+\emph{Avoiding black line} start moving the the robot backward until it reach the amount of steps specified in the \emph{Start avoiding black line}. When the amount of steps is reached the \projname{} changes state to \emph{Start avoiding object}.
+
+\item[Start avoiding object] \hfill \\
+\emph{Start avoiding object} will setup the motor settings for rotating. After that the robot goes to \emph{Avoiding object}. 
+
+\item[Avoiding object] \hfill \\
+\emph{Avoiding object} starts rotating until the ultrasonic sensor cannot see the object anymore. After avoiding the object the robot changes state to \emph{Start searching for object}.
+
+\item[Start moving to object] \hfill \\
+This state setup the motor settings for moving forward to the object. After setup the motors the \projname{} change state to \emph{Moving to object}.
+
+\item[Moving to object] \hfill \\
+In \emph{Moving to object} the robot start moving forward to the object. From this state the robot can go to two different possible states. If the distance to the object is close the robot will go to \emph{Collecting object}. Otherwise the robot continues moving as long as the ultrasonic sensor detects any object. If the ultrasonic sensor  cannot detect anything the robot will change state to \emph{Start search}.
+
+\item[Collecting object] \hfill \\
+In the \emph{Collecting object} state the master sends a message to the slave to collect the object. After this state the robot changes state to \emph{Wait for bluetooth}.
+
+\item[Wait for bluetooth] \hfill \\
+In this state the master waits for receiving a message from the slave. When the master had received the message, the robot changes state to \emph{Start searching for object} again. 
+
+\item[Start search] \hfill \\
+\emph{Start search} will configured the motor settings for rotate from left to right in small steps. After that the states are changed to Search.
+
+\item[Search] \hfill \\
+In the state called \emph{Search} the \projname{} will alternately rotate to left or right. If the \projname{} detects an object on the ultrasonic sensor it will change state to \emph{Moving to object} or \emph{Collecting object}. If the \projname{} do not find any object it will change state to \emph{Searching for object}. 
+
+\end{description}
