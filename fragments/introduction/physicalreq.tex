@@ -13,9 +13,12 @@ If the robot is to explore the entirety of the environment, it must be able to t
 \subsection{Collecting unit and storage}
 The robot must be able to collect objects within a given environment. When a collectible object is encountered, the robot must stop to collect it. The collecting unit picks up the object and the robot stores it within itself and continue to search for more objects to collect. This presents some challenges for the construction of the collecting unit and the robots storage capacity.
 
-The collection unit must be strong enough to pick up objects and place these in the robots storage. The collectible objects can be of varying sizes, which the collection unit must also support. It is required that the collection unit must be able to support picking up objects with a weight of maximum 150-200g and dimensions of 6x6x6cm for square objects and a diameter of 6-7cm for cylinder objects.\fxnote{hvor har vi de tal og vægte fra?}
+The collection unit must be strong enough to pick up objects and place these in the robots storage. The collectible objects can be of varying sizes, but still within the claw size of the robot, which the collection unit must also support.
 
 Another requirement is for the robot to have some place to store the collected objects. The storage is located on the robot itself. The storage capacity of the robot must be sufficiently large to contain multiple objects of the given dimensions. The robot must furthermore be solid enough to support the extra weight of the collected objects. 
+
+
+
 
 %In this project, this environment consists of a flat plane, with the boundaries marked.
 %It should also be able to somehow get itself back inside the environment, should it accidentally leave it.

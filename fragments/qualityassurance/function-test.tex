@@ -12,35 +12,36 @@ The requirements for the robot:
 To test the \projname{} and its ability to fulfil the three requirements, a testing area similar to a real world environment was set up. This area was determined by a boundary, which the robot was not allowed to cross, and a certain amount of objects with a size and weight that the robot earlier have proven to be able to find and collect, see \secref{sec:object_specification} for details about what objects that can be collected.
 
 \begin{figure}[H]
-     \center\frame{{\includegraphics[width=320pt]
-     {graphics/TestSetup.pdf}}}
+     \center{\includegraphics[width=320pt]
+     {graphics/TestSetup.pdf}}
      \caption{\label{fig:test-setup} Example of a tested environment.}
 \end{figure}
 
-The area was a rectangle with the dimensions 1 m times 1.5 m framed by double layer of black tape. Each test included four cans used as objects. Each can had were 7 cm high, had a diameter of 6.5 cm, and weighted 10 g. An example of a tested environment can be seen in \figref{fig:test-setup}
+The area was a rectangle with the dimensions 1 m times 1.5 m framed by double layer of black tape. Each test included four cans used as objects. Each can had a height of 7 cm, a diameter of 6.5 cm, and a weight of 10 g. An example of a tested environment can be seen in \figref{fig:test-setup}
 
 \section{Test result}
 
-All the requirements was tested in one combined test but for each requirement there is made some observations. The observations for all three requirements is listed below.
+All the requirements was tested in one combined test but for each requirement observations were made. The observations for all three requirements is listed below.
 
 \textbf{Navigate the environment within the boundaries}
 \begin{itemize}
-\item Sometimes the robot not detects the black lines before its too late.
-\item The width of the black lines is important. If the black line is to thin the robot will often not detect the lines.
+\item Sometimes the robot does not detects the black lines before its too late.
+\item The width of the black lines is important. If the black lines is too thin the robot is less likely detect the boundary.
 \end{itemize}
 
 \textbf{Control collection arm to pick up and store objects of specified size}
 \begin{itemize}
-\item The signal form the slave to the master is not always received when it is finished.
-\item Sometimes the robot not see a object even if it is right in the front of the robot.
+\item The signal from the slave to the master is not always received when it is finished.
+\item Sometimes the robot does not see an object, even if it is right in the front of the robot.
 \end{itemize}
+
 \textbf{Find and collect all objects within the time limit}
 \begin{itemize}
-\item If the distance between the objects is too big, the robot will never find all the object. 
+\item If the distance between the objects is too large, the robot will never find all the objects. 
 \item The time used to find objects increases if there is objects on the other side of the black lines.  
 \end{itemize}
 
-In addition to the observations the \tblref{table:FinalTimeTestRobot} shows the time result from the test. The time result is acceptable i relation to the goal from \secref{sec:model}.
+In addition to the observations the \tblref{table:FinalTimeTestRobot} shows the time result from the test. The time result is acceptable in relation to the goal from \secref{sec:model}.
 
 \begin{table}[H]
 	\centering

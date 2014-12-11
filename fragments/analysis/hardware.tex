@@ -21,24 +21,24 @@ Later on, further tests were conducted using the data logging feature in nxtOSEK
 The ultrasonic sensor emits an ultrasonic sound wave and measures the time it takes for the wave to impact on an object and return to the sensor. Depending on the time taken, the sensor can measure the distance from the sensor to the detected object~\citep{lego_education}. 
 
 \begin{figure}[H]
-     \center{\frame{\includegraphics[width=320pt]
-     {graphics/DistanceGraph.png}}}
+     \center{\includegraphics[width=320pt]
+     {graphics/DistanceGraph.png}}
      \caption{\label{fig:ultrasonic_sensor_test_graph} The actual distance and the measured distance from the ultrasonic sensor test.}
 \end{figure}
 
 The ultrasonic sensor was tested at different distances to measure the accuracy. The test was performed stationary and every 25 ms it sends out a pulse, for approximately 250 seconds, resulting in 1000 pulses, which would give a significant average of the distance. \appref{app:ultrasonic_sensor_test} shows the raw values observed during the test, which has been converted into the graph seen in \figref{fig:ultrasonic_sensor_test_graph}. The graph shows values from the tests from 1 cm to 50 cm. This test was performed using LabView. The entire test and its results can be seen in \appref{app:ultrasonic_sensor_test}.
 
 \begin{figure}[H]
-     \center{\frame{\includegraphics[width=320pt]
-     {graphics/SonarWaves.pdf}}}
+     \center{\includegraphics[width=320pt]
+     {graphics/SonarWaves.pdf}}
      \caption{\label{fig:angled_object} Sonic waves on an angled object.}
 \end{figure}
 
 At short distances, the ultrasonic sensor is proved to be imprecise. This is most highly due to the quality of the sensor and how it is constructed. As the distance increases, the precision increases as well, but does still vary a few cm. The sensor have some problems when it comes to spotting an object at certain angles, for example the angled object illustrated in \figref{fig:angled_object}. The sound waves sent out is reflected away from the sensor. This results in the sensor not being able to correctly calculate the distance and sometimes not being able see the object at all.
 
 \begin{figure}[H]
-     \center{\frame{\includegraphics[width=320pt]
-     {graphics/SonarTest.pdf}}}
+     \center{\includegraphics[width=320pt]
+     {graphics/SonarTest.pdf}}
      \caption{\label{fig:sonar-test-drawing} 360 degree test with ultrasonic sensor. Graph can be seen in \appref{app:sonar-test-graph}.}
 \end{figure}
 
@@ -51,14 +51,14 @@ The colour sensor can, by sending out light, measure the reflected light that re
 The test was performed to test the colour sensors ability to detect the black colour which is used as the environment boundary. The sensor should be placed close to the ground, as the only task is to detect the boundary. It should be possible to see a clear difference between the black boundary and the floor. The minimum and maximum values of the black boundary needs to be detected so that \projname{} can distinguish between the floor and the black boundary. Each sensor is tested, where the test provided their respective min and max values after 500 tries. In the end the absolute smallest and largest value is used for each RBG value. This was performed on the boundary and the floor to see the difference between these. A test was also performed, when passing over the black boundary to get the respective values and compare these to the min and max values from the previous test.
 
 \begin{figure}[H]
-     \center{\frame{\includegraphics[width=\textwidth]
-     {graphics/ColorLeft.png}}}
+     \center{\includegraphics[width=\textwidth]
+     {graphics/ColorLeft.png}}
      \caption{\label{fig:colour_sensor_test_left} Graph showing RGB values passing the black boundary 12 times for the left colour sensor.}
 \end{figure}
 
 \begin{figure}[H]
-     \center{\frame{\includegraphics[width=\textwidth]
-     {graphics/ColorRight.png}}}
+     \center{\includegraphics[width=\textwidth]
+     {graphics/ColorRight.png}}
      \caption{\label{fig:colour_sensor_test_right} Graph showing RGB values passing the black boundary 12 times for the right colour sensor.}
 \end{figure}
 
@@ -96,8 +96,8 @@ The test of the compass sensor is performed the following way: First the sensor 
 After the initial calibration the robot is placed facing in a direction close to north, which means a heading of around $0^\circ$. The robot then performs a $720^\circ$ spin while the heading is being logged. Turning clockwise the returned value should be a linear increasing value from 0 and up, until 0 degrees is hit again when the robot is facing north. Turning counter-clockwise, the returned value should quickly jump to $359^\circ$ and linearly decrease while spinning, until north is found again. This will repeat for every $360^\circ$ the robot does.
 
 \begin{figure}[H]
-     \center{\frame{\includegraphics[scale=1]
-     {graphics/DegreesGraph.png}}}
+     \center{\includegraphics[scale=1]
+     {graphics/DegreesGraph.png}}
      \caption{\label{fig:compass_sensor_test_graph} The measured degrees from a $720^\circ$ counter clockwise turn.}
 \end{figure}
 

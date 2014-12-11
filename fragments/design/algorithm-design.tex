@@ -14,8 +14,8 @@ The algorithm uses trigonometry to select the next object, by using the objects 
 These instructions must then be followed after the route has been calculated. \figref{fig:object_navigation_first} shows a situation where all the objects have been spotted, and now the \projname{} must decide which object that should be collected first. At this point the shortest object is easy to conclude, as the distance to all objects, from the starting position, is already known, based on information from the ultrasonic sensor. The shortest distance overall is found, and the object associated to this is remembered, and marked as collected, to remove this from consideration when finding the next objects. Another set of instructions is used to ensure that the \projname{} is pointing back, at the starting position. This is used to ease the calculations of the following objects. 
 
 \begin{figure}[H]
-     \center{\frame{\includegraphics[width=\textwidth]
-     {graphics/objectnavigationfirst.png}}}
+     \center{\includegraphics[width=\textwidth]
+     {graphics/objectnavigationfirst.png}}
      \caption{\label{fig:object_navigation_first} First object to be collected.}
 \end{figure}
 
@@ -42,8 +42,8 @@ C = 180 - A - B \label{equation:C}
 In order to point the \projname{} at the starting position again, the current heading is subtracted with (180 - C), where C is found by equation \ref{equation:C}. This process has provided the route to the next object, and the instructions to turn the \projname{} back, facing the starting position. The second step is executed for the remaining objects that were spotted. 
 
 \begin{figure}[H]
-     \center{\frame{\includegraphics[width=\textwidth]
-     {graphics/objectnavigationiteration.png}}}
+     \center{\includegraphics[width=\textwidth]
+     {graphics/objectnavigationiteration.png}}
      \caption{\label{fig:object_navigation_iteration} Iteration of objects to be collected.}
 \end{figure}
 
@@ -65,8 +65,8 @@ An algorithm that doesn't spend time on calculations prior to moving for objects
 
 
 \begin{figure}[H]
-     \center\frame{{\includegraphics[width=\textwidth]
-     {graphics/AlgorithmExamples2.pdf}}}
+     \center{\includegraphics[width=\textwidth]
+     {graphics/AlgorithmExamples2.pdf}}
      \caption{\label{fig:algorithm-example} Example of the NN-algorithm, the optimal algorithm, and next-in-view algorithms.}
 \end{figure}
 

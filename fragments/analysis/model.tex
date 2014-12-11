@@ -3,8 +3,8 @@
 When constructing autonomous robots like the \projname{}, a few techniques exist to model the robots known world. It is also important to know what exactly makes an autonomous robot, autonomous. In order for a robot to be autonomous it should be able to make decisions based on the current state the robot is in, previous experiences, and according to the goals that need to be accomplished~\citep{artificialintelligencebook}. 
 
 \begin{figure}[H]
-     \center\frame{{\includegraphics[scale=0.5]
-     {graphics/AgentModel.pdf}}}
+     \center{\includegraphics[scale=0.5]
+     {graphics/AgentModel.pdf}}
      \caption{\label{fig:model_mi_agent} An agent in an environment.}
 \end{figure}
 
@@ -23,21 +23,16 @@ There is a thin line between prior knowledge and past experience. The difference
 In order for the robot to understand the world, it must contain a suitable representation. There are three different ways to represent a world - State based, feature based and relational~\citep{artificialintelligencebook}. Each of these are shortly discussed and the most suitable is used to model the problem. 
 
 \begin{description}
-\item[State-based] In a state-based representation, each state represents a possible model of the world. If the environment were to be described in a state-based representation, where things like the boundary, location of the robot, and where the objects are placed, a lot of states would be needed to provide the necessary information to describe the world this way. The world should also be big enough to precisely place the objects and contain the space in between these. This would require a tremendous amount of states to describe, this way. 
+\item[State-based] In a state-based representation, each state represents a possible model of the world. If the environment were to be described in a state-based representation, where things like the boundary, location of the robot, and where the objects are placed, a lot of states would be needed to provide the necessary information to describe the world this way. The world should also be big enough to precisely place the objects and contain the space in between these. This would require a tremendous amount of states to describe the world this way. 
 
+A slightly altered version of the state-based representation would be to have a state for each phase of the \projname{}s behaviour. These states could, for instance, be a \emph{Searching for objects} or \emph{Collecting objects} states. This would greatly decrease the amount of states needed, and still make a state-based representation possible. 
 
-\item[Feature-based] In a feature-based representation, every state can be described in terms of features, where a feature has a value in each state. The entire environment can be represented with a two-dimensional array, in the feature based representation. Each point describes a spot in the environment, where either an object is located, boundary is spotted, or if nothing is in that spot. The feature based representation fits the \projname{} well. 
+\item[Feature-based] In a feature-based representation, every state can be described in terms of features, where a feature has a value in each state. The entire environment can be represented with a two-dimensional array, in the feature based representation. Each point describes a spot in the environment, where either an object is located, boundary is spotted, or if nothing is in that spot. 
+
 \item[Relational] A relational representation deals with relational descriptions in terms of individuals and relations among them. This can be used to describe states of individuals or their position compared to others. 
 \end{description}
 
-
-
-For the \projname{}, a feature-based representation suits the project best. The positions of objects, as well as other features such as the number of objects previously collected, are well represented in a feature-based model. 
-
-\fxnote{Vi skal finde ud af hvad state vi har gang i}
-
-
-
+Both a state-based and a feature-based representation of the world suits the project. The feature-based representation would require a lot of memory to initialise and update the representation continuously. This would also require that the sensors are accurate enough to find the correct position of the objects. The simple state-based model, by using phases, would suit the \projname{} well. 
 
 
 
