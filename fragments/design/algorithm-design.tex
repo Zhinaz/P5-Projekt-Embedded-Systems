@@ -49,9 +49,23 @@ In order to point the \projname{} at the starting position again, the current he
 
 
 \subsection{Next-in-view algorithm} \label{sec:niv-algorithm}
-An important property of the Next-in-view algorithm, is that it does not do any calculations prior to moving for objects, like in the Nearest neighbour algorithm. However it still relies a lot on the ultrasonic sensor, but in a different way. Instead of using the ultrasonic sensor to map the objects during the initial scan until all objects has been found, it uses the inputs from the sensor until all objects have been collected. 
+An important property of the Next-in-view algorithm, is that it does not do any calculations prior to moving for objects, like in the Nearest neighbour algorithm. However it still relies a lot on the ultrasonic sensor, but in a different way. Instead of using the ultrasonic sensor to map the objects during the initial scan until all objects has been found, it uses the inputs from the sensor until all objects have been collected.
 
-At start-up the robot starts turning until it spots an object with the sonar. It then drives towards it until the object is within grabbing distance of the claw. Because the ultrasonic sensors view is a cone, as described in \secref{sec:hardware}, a case may arise where the robot is not driving exactly towards the found object. When it gets close to the object, the object will be out of the view of the sensor. 
+\begin{figure}[H]
+     \center{\includegraphics[width=\textwidth]
+     {graphics/objectnavigationniv.png}}
+     \caption{\label{fig:object_navigation_niv} Start-up using the Next-in-view algorithm}
+\end{figure}
+
+At start-up the robot starts turning until it spots an object with the sonar, as seen in \figref{fig:object_navigation_niv}. It then drives towards it until the object is within grabbing distance of the claw. The object will be picked up and the robot will search for the next object, as seen in \figref{fig:object_navigation_niv2}
+
+\begin{figure}[H]
+     \center{\includegraphics[width=\textwidth]
+     {graphics/objectnavigationniv2.png}}
+     \caption{\label{fig:object_navigation_niv2} Searching for the next object}
+\end{figure}
+
+Because the ultrasonic sensors view is a cone, as described in \secref{sec:hardware}, a case may arise where the robot is not driving exactly towards the found object. When it gets close to the object, the object will be out of the view of the sensor.
 
 In this case, where the sonar looses the object while driving towards it, a small routine will be initiated, where the robot will turn a little to the right and left while slowly increasing the angles turned to scan an increasingly larger range. When the object is spotted again the robot continues to move towards it. When the object has been collected, the robot will start turning until it finds a new object and the entire process continues until every object has been found.
 
