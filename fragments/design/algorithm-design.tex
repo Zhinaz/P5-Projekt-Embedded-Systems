@@ -1,9 +1,14 @@
 \section{Algorithm design} \label{sec:algorithm-design}
-After the \projname{} has completed its initial 360 degree search and stored the information about the nearby objects, it is time to calculate a route between said objects. Due to the limited power and calculation speed of the LEGO NXT brick it is necessary to find an efficient algorithm that is fast and does not take a lot of computational power and space, in addition to finding a short route to all the objects. 
 
-After all the objects have been spotted, using the 360 degree search, an intelligent route to pick up these objects is needed. As mentioned in \secref{sec:problem-description}, the problem the \projname{} is dealing with is a form of the ``travelling salesman problem''. In order to solve this problem, the algorithm ``Nearest neighbour''(NN) algorithm is used. 
+\fxnote{Hele introen her skal laves om. Det er tydelig copy paste. Antag at NN er den bedste, men grundet hardware testen skal NIV vælges i stedet. Tilføj lidt traveling salesman}
 
-Another way to solve the problem is by using a ``Next-in-view'' algorithm, that rely on a constant update from the sensors. Moving until the sensors detects something relevant. 
+In order to solve the problem described in \secref{sec:problem-description}, a heuristic is needed. Since it is not f
+
+%After the \projname{} has completed its initial 360 degree search and stored the information about the nearby objects, it is time to calculate a route between said objects. Due to the limited power and calculation speed of the LEGO NXT brick it is necessary to find an efficient algorithm that is fast and does not take a lot of computational power and space, in addition to finding a short route to all the objects. 
+
+%After all the objects have been spotted, using the 360 degree search, an intelligent route to pick up these objects is needed. As mentioned in \secref{sec:problem-description}, the problem the \projname{} is dealing with is a form of the ``travelling salesman problem''. In order to solve this problem, the algorithm ``Nearest neighbour''(NN) algorithm is used. 
+
+%Another way to solve the problem is by using a ``Next-in-view'' algorithm, that rely on a constant update from the sensors. Moving until the sensors detects something relevant. 
 
 
 \subsection{Nearest neighbour algorithm} \label{sec:nn-algorithm}
@@ -49,7 +54,7 @@ In order to point the \projname{} at the starting position again, the current he
 
 
 \subsection{Next-in-view algorithm} \label{sec:niv-algorithm}
-An important property of the Next-in-view algorithm, is that it does not do any calculations prior to moving for objects, like in the Nearest neighbour algorithm. However it still relies a lot on the ultrasonic sensor, but in a different way. Instead of using the ultrasonic sensor to map the objects during the initial scan until all objects has been found, it uses the inputs from the sensor until all objects have been collected.
+An important property of the Next-in-view algorithm, is that it does not do any calculations prior to moving for objects, like the NN-algorithm. However it still relies a lot on the ultrasonic sensor, but in a different way. Instead of using the ultrasonic sensor to map the objects during the initial scan until all objects has been found, it uses the inputs from the sensor until all objects have been collected.
 
 \begin{figure}[H]
      \center{\includegraphics[width=\textwidth]
@@ -57,26 +62,26 @@ An important property of the Next-in-view algorithm, is that it does not do any 
      \caption{\label{fig:object_navigation_niv} Start-up using the Next-in-view algorithm}
 \end{figure}
 
-At start-up the robot starts turning until it spots an object with the sonar, as seen in \figref{fig:object_navigation_niv}. It then drives towards it until the object is within grabbing distance of the claw. The object will be picked up and the robot will search for the next object, as seen in \figref{fig:object_navigation_niv2}
+At start-up the robot starts turning until it spots an object with the sonar, as seen in \figref{fig:object_navigation_niv}. It then drives towards it until the object is within grabbing distance of the claw. The object will be picked up and the \projname{} continues to search for objects, as seen in \figref{fig:object_navigation_niv2}
 
 \begin{figure}[H]
      \center{\includegraphics[width=\textwidth]
      {graphics/objectnavigationniv2.png}}
      \caption{\label{fig:object_navigation_niv2} Searching for the next object}
-\end{figure}
+\end{figure} 
 
-Because the ultrasonic sensors view is a cone, as described in \secref{sec:hardware}, a case may arise where the robot is not driving exactly towards the found object. When it gets close to the object, the object will be out of the view of the sensor.
+Because the ultrasonic sensors view is a cone, as described in \secref{sec:hardware}, a case may arise where the robot is not driving straight towards the object. But as it gets closer, it might lose the object as it gets out of the view of the sensor.
 
-In this case, where the sonar looses the object while driving towards it, a small routine will be initiated, where the robot will turn a little to the right and left while slowly increasing the angles turned to scan an increasingly larger range. When the object is spotted again the robot continues to move towards it. When the object has been collected, the robot will start turning until it finds a new object and the entire process continues until every object has been found.
+In this case, a small routine will be initiated, where the robot will turn a little to the right, followed by a little to the left, constantly scanning for objects, while slowly increasing the angles turned to scan an increasingly larger range. When an object is spotted again, the robot continues to move towards it. When the object has been collected, the robot starts turning until it finds a new object and the entire process continues until every object has been found.
 
 
 \subsection{Algorithm comparison} \label{sec:algorithm-desc}
-The shortest route between the object can be brute forced by trying out every single possible route between the start position and all of the objects. This would have a calculation time of $\mathcal{O}(n!)$, which means that every object added, the running time greatly increases. This gives the robot problems when calculating a shortest route, if the amount of objects exceed a certain number. If there are 9 objects for instance, the number of different paths to check exceeds 360000. 
 
-A more time efficient, but less distance effective, algorithm is the NN-algorithm. The algorithm calculates a route based on which objects are closest together. This means that the distance to all the points are calculated from the starting point and the shortest distance is chosen. This is then repeated from the new point, but this time it does not include the objects from previously visited points.
+The shortest route between the object can be brute forced by trying out every single possible route between the start position and all of the objects.  This would have a calculation time of $\mathcal{O}(n!)$, which means that every object added, the running time greatly increases. This gives the robot problems when calculating a shortest route, if the amount of objects exceed a certain number, due to its limited processor power. If there are 9 objects for instance, the number of different paths to check exceeds 360000. This is an example of the traveling salesman problem as described in \secref{sec:problem-description}.
+
+A faster, but less distance-efficient algorithm is the NN-algorithm. The algorithm calculates a route based on which objects are closest together. This means that the distance to all the points are calculated from the starting point and the shortest distance is chosen. This is then repeated from the new point, but this time it does not include the objects from previously visited points.
 
 An algorithm that doesn't spend time on calculations prior to moving for objects is the next-in-view algorithm. This algorithm has a number of issues connected to it, which may reduce its performance, however in smaller cases with less than ten objects, its completion speed is close to the NN-algorithm.
-
 
 \begin{figure}[H]
      \center{\includegraphics[width=\textwidth]
@@ -97,6 +102,4 @@ In the average case, the difference between the NN-algorithm and the next-in-vie
 
 Due to the limitations of the LEGO NXT brick and the complexity of the problem, finding the optimal solution was ruled out as a possibility. Instead, the NN-algorithm was initially selected to calculate the route for the \projname{}. This algorithm does not always result in the most optimal route, but when the calculation speed and actual running speed is considered, it is arguably faster in the average case. 
 
-As a result of this and the inaccurate hardware, it is chosen not to implement the NN-algorithm. The ultrasonic sensor was not able to detect objects with enough precision, that the \projname{} could accurately calculate any useful information based on the data.
-
-Due to this limitation, the \emph{next-in-view} algorithm was chosen for implementation. The simplicity of the algorithm, as well as the fact that it takes the inaccurate sensor input into account, made it the obvious choice. And as mentioned in \secref{sec:nn-algorithm}, the distance difference of the two algorithms are nearly insignificant.
+As a result of this and the inaccurate hardware, it is chosen not to implement the NN-algorithm in the final version. The ultrasonic sensor was not able to detect objects with enough precision, that the \projname{} could accurately calculate any useful information based on the data. Due to this limitation, the \emph{next-in-view} algorithm was chosen for implementation. As mentioned in test case from \secref{sec:nn-algorithm} were the difference between the two algorithms' distance nearly insignificant. This also means that using a state-based representation of the world is preferred, where each state represents the robots behaviour. If the NN-algorithm were used, a feature based representation would be better suited for the \projname{}, because of the need to map the location of each found object in relation to the environment.

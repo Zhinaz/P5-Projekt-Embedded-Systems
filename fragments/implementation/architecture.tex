@@ -22,7 +22,7 @@ TASK MainTask
 };
 \end{lstlisting}
 
-The \projname{} contains two tasks, the Main task as shown in \lstref{lst:taskexample} and the Background task. The Main task contains the primary controls and states of the robot, all within a while loop that keeps the robot going. The Background task is constantly running and it has two assignments. It keeps pinging the colour sensor for a colour to keep them active. Secondly it waits for the slave brick to respond that it is done collecting an object, see \secref{sec:imp-procedure}. Every time the Main task loops an event will ensure that the background task is executed.
+The \projname{} contains two tasks: the ``Main'' task, as shown in \lstref{lst:taskexample}, and the ``Background'' task. The Main task contains the primary controls and states of the robot, all within a while loop that keeps the robot going. The Background task is constantly running with two assignments. It keeps pinging the colour sensors background process, to keep them active. Secondly, if a signal has been sent to the slave brick, it waits for the slave brick to respond, when it is done collecting an object. The OS handles which task is executed, depending on the priority of the task. 
 
 \subsubsection{Events} \label{sec:events}
 An event, is a trigger, that activates when a certain condition has been met. In nxtOSEK, events can be triggered by an alarm or by signalling the event in the program. An example of an event can be seen in \lstref{lst:eventexample}. The event only has a single attribute, a MASK. This is an integer number, which can be assigned by using AUTO or by manually assigning a number using hexadecimal. The MASK is used to reference the event~\citep{osekoil}. 
@@ -33,6 +33,8 @@ EVENT EventMainTask
     MASK = AUTO;
 };
 \end{lstlisting}
+
+\fxnote{Skriv noget om hvordan vi i vores projekt bruger Events}
 
 \subsubsection{Alarms} \label{sec:alarms}
 The alarm can be used for a few tasks; activate a task, trigger an event or activate an alarm-callback routine. The alarm is run on a counter, and when this counter has been met, the associated action is performed. An example of an alarm can be seen in \lstref{lst:alarmexample}. The alarm has a few attributes, first there is a COUNTER assigning, where a counter is associated with the alarm. Then the ACTION attribute is set, by describing what ACTION is performed, when the alarm has met its goal. The last attribute is the AUTOSTART attribute, that describes if the alarm action should be triggered at program start~\citep{osekoil}.
@@ -50,3 +52,4 @@ ALARM AlarmMainTask
 };
 \end{lstlisting}
 
+\fxnote{Skriv noget om hvordan vi i vores projekt bruger Alarms}

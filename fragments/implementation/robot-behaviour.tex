@@ -1,12 +1,13 @@
 \section{Robot behaviour} \label{sec:robot_behaviour}
-This section contains a short description of all the available states for the \projname{}. These states are used to determine what process the robot is currently in and to ensure that the robot is always doing as expected.
+\fxnote{Skriv noget mere intro til dette}
+This section contains a short description of all the available states for the \projname{}. These states are used to determine what process the robot is currently in and to ensure that the robot is always doing as expected. All of the states and their connections can be seen in \figref{fig:robot-behaviour}.
 
 \begin{description}
 \item[Start searching for object] \hfill \\
 When the robot is started it will be initialised to this state. In this state the motor settings will be configured for rotating using the default motor speed. After that the \projname{} change state to \emph{Searching for object}.
 
 \item[Searching for object] \hfill \\
-In this state the \projname{} continue searching to the right until it finds an object. From this state the robot can go to three different possible states based on the ultrasonic sensor and colour sensors. The ultrasonic sensor always runs in a background task and based on the value form the sensor the \projname{} change state to \emph{Start moving to object}, \emph{Collecting object} or continue in \emph{Searching for object}. 
+In this state the \projname{} continue searching to the right until it finds an object. From this state the robot can go to three different possible states based on the ultrasonic sensor and colour sensors. The ultrasonic sensor always runs continuously, as the values form the sensor can change the state to \emph{Start moving to object}, \emph{Collecting object} or continue in \emph{Searching for object}. 
 
 \item[Start avoiding black line] \hfill \\
 If the \projname{} detects a black lines at any time the robot will change state to \emph{Start avoiding black line}. The robot will then configure the motor settings to start moving backward. After this the \projname{} change state to \emph{Avoiding black line}. 
@@ -37,5 +38,11 @@ When an object has been lost from sight the \projname{} will enter this state. I
 
 \item[Search] \hfill \\
 In this state the robot will do the movement actions initialised in the \emph{Start search} state. If the \projname{} detects an object on the ultrasonic sensor it will change state to \emph{Moving to object} or \emph{Collecting object}. If the \projname{} do not find any object after doing three steps to the right and left, it will change its state back to the \emph{Start searching for object} state. 
-
 \end{description}
+
+\begin{figure}[H]
+     \center{\includegraphics[width=\textwidth]
+     {graphics/RobotBehaviour.pdf}}
+     \caption{\label{fig:robot-behaviour} The robots different states and their connections}
+\end{figure}
+

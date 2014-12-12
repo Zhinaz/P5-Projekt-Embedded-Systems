@@ -1,9 +1,7 @@
 \section{Operating system and programming language} \label{sec:os_and_proglanguage}
-Since the LEGO Mindstorm NXT was chosen as the platform for the prototype robot, it puts some limitations on the choice of OS and programming language. It is required to use an OS that is supported by the NXT Intelligent Brick and the programming language must furthermore be supported by the chosen OS on the NXT brick.
+Since the LEGO Mindstorm NXT was chosen as the platform for the prototype robot, it puts some limitations on the choice of OS and programming language. It is required to use an OS that is supported by the NXT Intelligent Brick and the programming language must furthermore be supported by the chosen OS.
 
 A few different OSes were considered for the \projname{}. The default NXT firmware IDE allows for simple drag-and-drop programming in the accompanying LEGO NXT-G software, for creating simple sample robots quickly. Another IDE called BricxCC, also used with the default firmware, uses the programming language Not eXactly C (NXC) and Next Byte Codes (NBC). NXC is a high-level open-source language similar to the C language, build on the NBC compiler. 
-
-%BricxCC \citep{bricxcc} is an Integrated Development Environment (IDE) for programming LEGO NXT robots on the default firmware. BricxCC includes support for programming the LEGO Mindstorms NXT brick using the programming languages Not eXactly C (NXC) and Next Byte Codes (NBC). NBC is a simple open-source language with an assembly language syntax, and NXC is a high-level open-source language similar to C, built on the NBC compiler.
 
 The default firmware and the supported programming languages and tools associated, allows for programming both simple and more advanced robots. However it is still more restrictive than some of the alternatives. Because of this, it was decided to look at a couple of custom firmwares.  
 
@@ -14,12 +12,30 @@ Another of the considered firmwares is nxtOSEK. nxtOSEK is a hybrid between the 
 nxtOSEK includes a variety of useful features. Like leJOS it contains all the tools needed to upload programs to the NXT brick. It is possible to use the Eclipse CDT IDE to write and compile programs and upload them to the NXT brick. It supports multithreading and real-time multi tasking features provided by TOPPERS, and more importantly for the \projname{}, events are also supported. It supports Bluetooth connections, both from the brick to PC and from NXT Brick to NXT Brick. Furthermore, connecting a brick to the PC through Bluetooth, R/C and Data Logging features is provided by the NXT Gamepad.
 
 The C/C++ languages were favoured over Java and were the main reason why nxtOSEK was chosen over leJOS.
+\fxnote{skær evt ned på kapitlet, fjern unødvendig tekst}
 
 
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%BricxCC \citep{bricxcc} is an Integrated Development Environment (IDE) for programming LEGO NXT robots on the default firmware. BricxCC includes support for programming the LEGO Mindstorms NXT brick using the programming languages Not eXactly C (NXC) and Next Byte Codes (NBC). NBC is a simple open-source language with an assembly language syntax, and NXC is a high-level open-source language similar to C, built on the NBC compiler.
 
 
 

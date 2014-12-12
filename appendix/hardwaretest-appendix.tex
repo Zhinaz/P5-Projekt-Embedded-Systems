@@ -24,9 +24,9 @@ This section shows the observed values from the servo motor test. The test is pe
     \caption{\label{table:app_motor_test}Servo motor test of rotations.}
 \end{table}
 
-
+\newpage
 \section*{Ultrasonic sensor distance test} \label{app:ultrasonic_sensor_test}
-This section shows the observed values from the ultrasonic sensor test. \secref{sec:ultrasonic_sensor} describes the testing method. \tblref{table:app_ultrasonic_sensor_test} shows the observed sensor values, called value, and the actual distance. The difference between the values is also shown. 
+This section shows the observed values from the ultrasonic sensor distance test. \secref{sec:ultrasonic_sensor} describes the testing method. \tblref{table:app_ultrasonic_sensor_test} shows the observed sensor values, called value, and the actual distance. The difference between the values is also shown. 
 
 \begin{table}[H]
 	\centering
@@ -54,12 +54,30 @@ This section shows the observed values from the ultrasonic sensor test. \secref{
 \end{table}
 
 
+\newpage
+\section*{Ultrasonic rotation test graph} \label{app:sonar-test-graph}
+This section shows the observations from the ultrasonic sensor rotation test plotted into a graph. Every time the values goes down, a new object has been spotted. There were placed five objects in this test.
 
-\section*{Ultrasonic test graph} \label{app:sonar-test-graph}
-This section shows the observations from the ultrasonic sensor plotted in on a graph. Every time the values goes down, a new object has been spotted.
+The objects were placed at the following degrees:
+\begin{description}
+\item[Object 1] 0 degrees
+\item[Object 2] 90 degrees
+\item[Object 3] 180 degrees
+\item[Object 4] 225 degrees
+\item[Object 5] 270 degrees
+\end{description}
 
 \begin{figure}[H]
      \center{\includegraphics[width=\textwidth]
-     {graphics/ObjectSpotting.png}}
+     {graphics/ObjectSpotting2.png}}
      \caption{\label{fig:sonar-test-graph} 360 degree test with ultrasonic sensor.}
 \end{figure}
+
+As seen in \figref{fig:sonar-test-graph}, if the objects are placed close together, the objects can not be distinguished from each other, resulting in object number 3., 4., and 5. counting as one big object. 
+
+
+
+
+
+
+
