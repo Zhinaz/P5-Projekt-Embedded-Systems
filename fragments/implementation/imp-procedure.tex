@@ -24,12 +24,13 @@ To visualise these modules, a flowchart tool was used to map the different actio
      {graphics/CompleteRobotFlowchart.pdf}}
      \caption{\label{fig:CompleteRobotFlowchart} Flowchart of the robot and its behaviour.}
 \end{figure}
+\fxnote{Skal vi tilføje tekst til MC boksen?}
 
 In the diagram in \figref{fig:CompleteRobotFlowchart}, the sections are coloured according to what functionality they fulfil. The previously mentioned iterations often focus on one of the particular partitions of the flowchart. The iterations are described below.
 
 
 \subsubsection{First iteration --- Basic movement}
-In the first iteration, the first module was implemented: the basic movement behaviour. This iteration resulted in a basic robot with tank treads, that could move backwards and forwards, and turn left and right around its own vertical axis. The robot, at this point, was able to move around in a square pattern, and end up at the starting location, with an accuracy of a few centimetres. Movement accuracy at this point was hard coded. The blue part in \figref{fig:CompleteRobotFlowchart}, which is the basis for all implementation, was also implemented in this iteration, except for the bluetooth initialisation.
+In the first iteration, the first module was implemented: the basic movement behaviour. This iteration resulted in a basic robot with tank treads, that could move forward and backwards, and turn left and right around its own vertical axis. The robot, at this point, was able to move around in a square pattern, and end up at the starting location, with an accuracy of a few centimetres. Movement accuracy at this point was hard coded. The blue part in \figref{fig:CompleteRobotFlowchart}, which is the basis for all implementation, was also implemented in this iteration, except for the bluetooth initialisation.
 
 
 \subsubsection{Second iteration --- Object collection}
@@ -57,9 +58,7 @@ During this iteration a motor controller was developed, to ensure that the motor
 
 
 \subsubsection{Eight iteration --- Advanced route navigation}
-The last iteration was supposed to implement the NN-algorithm described in \secref{sec:nn-algorithm}, but due to the limitations this algorithm was disregarded. The source code of the NN-algorithm can be found in \appref{app:CD}.
-
-
+The last iteration was supposed to implement the NN-algorithm described in \secref{sec:nn-algorithm}, but due to the result of the hardware test, it was decided not to implement the NN-algorithm in the final version. The ultrasonic sensor was not able to detect objects with enough precision so that the \projname{} could accurately calculate any useful information based on the data. Due to this limitation, the \emph{next-in-view} algorithm was chosen for implementation. The source code of the NN-algorithm can be found in \appref{app:CD}.
 
 
 %The hardware problems, primarily the ones caused by the ultrasonic sensor, were too difficult to solve at this point in the project and this iteration will therefore not be implemented in the final program. Instead, the next-in-view algorithm will be the final algorithm. It is possible to see what would have been implemented in \secref{sec:object-navigation}. A comparison between algorithms, and a more detailed explanation of them, can be seen in \secref{sec:algorithm-desc}.

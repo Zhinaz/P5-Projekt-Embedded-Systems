@@ -1,4 +1,4 @@
-In this chapter the function test of the final robot will be described. In relation to the specified requirements in \secref{sec:requirement_specification}, all the requirements is tested. The tests show whether or not the robot is able to perform the actions from the requirements. It is not possible to test the physical features but they have been fulfilled.
+In this chapter the functionality of the final robot will be tested and described. In relation to the specified requirements in \secref{sec:requirement_specification}, all the requirements is tested. The tests show whether or not the robot is able to perform the actions from the requirements. It is not possible to test the physical features but they have been fulfilled.
 
 The requirements for the robot: 
 \begin{itemize}
@@ -7,9 +7,8 @@ The requirements for the robot:
 \item Find and collect all objects within the time limit.
 \end{itemize}
 
-
 \section{Test setup}
-To test the \projname{} and its ability to fulfil the three requirements, a testing area similar to a real world environment was set up. This area was determined by a boundary, which the robot was not allowed to cross, and a certain amount of objects with a size and weight that the robot earlier have proven to be able to find and collect, see \secref{sec:object_specification} for details about what objects that can be collected.
+To test the \projname{} and its ability to fulfil the three requirements, a testing area similar to a real world environment was set up. This area was determined by a boundary which the robot was not allowed to cross, objects outside the boundary to test the boundary detection, and a certain amount of objects with a size and weight that the robot has proven in \secref{sec:object_specification} to be able to find and collect.
 
 \begin{figure}[H]
      \center{\includegraphics[width=320pt]
@@ -41,8 +40,6 @@ All the requirements was tested in one combined test but for each requirement ob
 \item The time used to find objects increases if there is objects on the other side of the black lines.  
 \end{itemize}
 
-In addition to the observations the \tblref{table:FinalTimeTestRobot} shows the time result from the test. The time result is acceptable in relation to the goal from \secref{sec:model}.
-
 \begin{table}[H]
 	\centering
 	\ra{1.3}
@@ -59,7 +56,7 @@ In addition to the observations the \tblref{table:FinalTimeTestRobot} shows the 
    \caption{\label{table:FinalTimeTestRobot} Time test of the robot}
 \end{table}
 
-
+In addition to the observations the \tblref{table:FinalTimeTestRobot} shows the time result from the test. The time result is acceptable in relation to the goal from \secref{sec:model}.
 
 
 

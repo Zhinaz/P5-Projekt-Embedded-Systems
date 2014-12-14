@@ -27,19 +27,20 @@ The \projname{} contains two tasks: the ``Main'' task, as shown in \lstref{lst:t
 \subsubsection{Events} \label{sec:events}
 An event, is a trigger, that activates when a certain condition has been met. In nxtOSEK, events can be triggered by an alarm or by signalling the event in the program. An example of an event can be seen in \lstref{lst:eventexample}. The event only has a single attribute, a MASK. This is an integer number, which can be assigned by using AUTO or by manually assigning a number using hexadecimal. The MASK is used to reference the event~\citep{osekoil}. 
 
-\begin{lstlisting}[caption= An example of a task used in the \projname{}, label=lst:eventexample]
+\begin{lstlisting}[caption= An example of an event used in the \projname{}, label=lst:eventexample]
 EVENT EventMainTask
 {
     MASK = AUTO;
 };
 \end{lstlisting}
 
-\fxnote{Skriv noget om hvordan vi i vores projekt bruger Events}
+The event in \lstref{lst:eventexample} is the only event in the \projname{}. It is used to trigger the alarm, seen in \lstref{lst:alarmexample}, at the beginning of the loop in the Main task. 
+
 
 \subsubsection{Alarms} \label{sec:alarms}
 The alarm can be used for a few tasks; activate a task, trigger an event or activate an alarm-callback routine. The alarm is run on a counter, and when this counter has been met, the associated action is performed. An example of an alarm can be seen in \lstref{lst:alarmexample}. The alarm has a few attributes, first there is a COUNTER assigning, where a counter is associated with the alarm. Then the ACTION attribute is set, by describing what ACTION is performed, when the alarm has met its goal. The last attribute is the AUTOSTART attribute, that describes if the alarm action should be triggered at program start~\citep{osekoil}.
 
-\begin{lstlisting}[caption= An example of a task used in the \projname{}, label=lst:alarmexample]
+\begin{lstlisting}[caption= An example of an alarm used in the \projname{}, label=lst:alarmexample]
 ALARM AlarmMainTask
 {
     COUNTER = SysTimerCnt;
@@ -52,4 +53,5 @@ ALARM AlarmMainTask
 };
 \end{lstlisting}
 
-\fxnote{Skriv noget om hvordan vi i vores projekt bruger Alarms}
+The alarm on \lstref{lst:alarmexample}, is used in triggering an action for the background processes of boundary detection and bluetooth connection. An alarm is set when the colour sensors are initialised. This is the only alarm used in \projname{}.
+

@@ -13,7 +13,7 @@ This section describes the choices made for the project in terms of which hardwa
 There exist a number of available sensors and actuators for the LEGO NXT. These sensors gives the NXT robots the ability to perform various actions. For the required tasks, it has been chosen to use the interactive servo motors for driving, steering, and the collection of objects. The colour sensor is well suited to ensure that the robot can detect the environment boundaries. For detecting objects, the ultrasonic sensor has been chosen, as the robot is required to know when an object is present and should be collected, as well as the distance to the detected object. Finally, to help ensure precise movement, the HiTechnic NXT Compass sensor is used.
 
 \subsection{Hardware test} \label{sec:hardware_test}
-In order to know the capabilities and limitations of the hardware, some tests must be conducted. Testing environments have been set up to be able to test the individual hardware devices. The early data heavy tests were created in LabView and transferred to the NXT brick. These used the original LEGO NXT firmware. During the test the LEGO Brick would write all the results into a file, which later would be transferred into LabView for analysis. 
+In order to know the capabilities and limitations of the hardware, some tests were conducted. Testing environments were set up to test the individual hardware devices. The early data heavy tests \fxnote{"heavy tests" ?} were created in LabView and transferred to the NXT brick. These used the original LEGO NXT firmware. During the test the LEGO Brick would write all the results into a file, which later would be transferred into LabView for analysis. 
 
 Later on, further tests were conducted using the data logging feature in nxtOSEK \citep{datalogging}. A bluetooth connection is established between the NXT brick and a PC, and while the robot is running, the outputs from the sensors and motors are logged and sent to the PC. The data can be saved in a .csv file and converted into graphs, which makes for easy analysis.
 
@@ -26,7 +26,7 @@ The ultrasonic sensor emits an ultrasonic sound wave and measures the time it ta
      \caption{\label{fig:ultrasonic_sensor_test_graph} The actual distance and the measured distance from the ultrasonic sensor test.}
 \end{figure}
 
-The ultrasonic sensor was tested at different distances to measure the accuracy. The test was performed stationary and every 25 ms it sends out a pulse, for approximately 250 seconds, resulting in 1000 pulses, which would give a significant average of the distance. \appref{app:ultrasonic_sensor_test} shows the raw values observed during the test, which has been converted into the graph seen in \figref{fig:ultrasonic_sensor_test_graph}. The graph shows values from the tests from 1 cm to 50 cm. This test was performed using LabView. The entire test and its results can be seen in \appref{app:ultrasonic_sensor_test}.
+The ultrasonic sensor was tested at different distances to measure the accuracy. The test was performed stationary and every 25 ms it sends out a pulse, for 250 seconds, resulting in 1000 pulses, which would give a significant average of the distance. \appref{app:ultrasonic_sensor_test} shows the raw values observed during the test, which has been converted into the graph seen in \figref{fig:ultrasonic_sensor_test_graph}. The graph shows values from the tests from 1 cm to 50 cm. This test was performed using LabView.
 
 \begin{figure}[H]
      \center{\includegraphics[width=320pt]
@@ -62,7 +62,7 @@ The test was performed to test the colour sensors ability to detect the black co
      \caption{\label{fig:colour_sensor_test_right} Graph showing RGB values passing the black boundary 12 times for the right colour sensor.}
 \end{figure}
 
-As seen on \figref{fig:colour_sensor_test_left} and \figref{fig:colour_sensor_test_right}, the two sensors are quite different when it comes to the values they provide, despite being tested the exact same way. This is important and must be taken into account when using the sensors in programs. Due to uncertainties from the environment such as light, shadows, or dust, even the values in the two figures aren't always accurate. To counter this, it is possible to increase the range between the black minimum and maximum detection values to reduce potential detection problems. This increased range is possible, because the floor RGB values compared with the black values are quite different, allowing the increased range.
+As seen on \figref{fig:colour_sensor_test_left} and \figref{fig:colour_sensor_test_right}, the two sensors are quite different when it comes to the values they provide, despite being tested the exact same way. This is important and must be taken into account when using the sensors in the program. Due to uncertainties from the environment such as light, shadows, or dust, even the values in the two figures aren't always accurate. To counter this, it is possible to increase the range between the black minimum and maximum detection values to reduce potential detection problems. This increased range is possible, because the floor RGB values compared with the black values are quite different, allowing the addition of this \emph{extended range}.
 
 \begin{table}[H]
 	\centering
@@ -71,7 +71,7 @@ As seen on \figref{fig:colour_sensor_test_left} and \figref{fig:colour_sensor_te
     \begin{tabular}{|l|r|r|r|r|r|r|r|r|}
     \hline
     \rowcolor{DGray}
-    \textbf{Sensor} & \multicolumn{4}{c|}{Sensor right} & \multicolumn{4}{c|}{Sensor left} \\ \hline
+    \textbf{Sensor} & \multicolumn{4}{c|}{Right} & \multicolumn{4}{c|}{Left} \\ \hline
     \rowcolor{Gray}
     \textbf{Surface} & \multicolumn{2}{c|}{Black boundary} & \multicolumn{2}{c|}{Floor} & \multicolumn{2}{c|}{Black boundary} & \multicolumn{2}{c|}{Floor}   \\ \hline
     \rowcolor{DGray}
@@ -86,10 +86,10 @@ As seen on \figref{fig:colour_sensor_test_left} and \figref{fig:colour_sensor_te
 
 In~\tblref{table:colour_sensor_test}, the min and max values for each sensor is listed. The values reflect the data on \figref{fig:colour_sensor_test_left} and \figref{fig:colour_sensor_test_right}. These values provide the base line for the RGB value range.
 
-It can happen that the \projname{} will drive over the boundary. This happens when the robot drives over it in between two updates from the colour sensor, which is only able to ping a certain amount of times each second. 
+It can happen that the \projname{} will drive over the boundary. This happens when the robot drives over it in between two updates from the colour sensor, which is only able to ping a certain amount of times each second. The occurrence of this happening also depends on the width of the boundary.
 
 \subsubsection{Compass sensor}
-The HiTechnic NXT Compass Sensor, is a digital compass that measures the earth's magnetic field and returns a value representing the current heading. The magnetic heading is calculated to the nearest $1^\circ$ and returned as a number from 0 to 359, where 0 is north and 180 is south~\citep{compass}.
+The HiTechnic NXT Compass Sensor is a digital compass that measures the earth's magnetic field and returns a value representing the current heading. The magnetic heading is calculated to the nearest $1^\circ$ and returned as a number from 0 to 359, where 0 is north and 180 is south~\citep{compass}.
 
 The test of the compass sensor is performed the following way: First the sensor is calibrated to work optimally with the \projname{}. The NXT bricks and the motors on the robot have their own magnetic fields which are noise to the compass sensors readings. This makes sensor calibration prior to use a necessity for accurate output values. The compass sensor will furthermore be placed at least 15cm from the motors and 10cm from the NXT bricks~\citep{compass}.
 
@@ -140,7 +140,7 @@ The main task of the \projname{} is to collect objects. Since the \projname{} is
 \item Angle - Can the ultrasonic sensor detect the object from all angles? %: 45 degrees and 90 degrees.
 \end{itemize}
 
-The size of an objects is important. Can the object be detected by the ultrasonic sensor? It is possible to detect objects of 1cm in width, if the object is placed exactly in the middle of the ultrasonic sensor. If the object is over 12cm in width, the claw to collect the object faces complications with the width of the claw. As the robot have to get close to an object to collect it, the width of the ultrasonic sensor can provide a reasonable measurement of the size it should be able to see. If the object is big enough to cover both the sender and receiver, it should be detected. The width is 5cm and given the position of the claw, square objects of size 6x6x6cm, or cylinder objects with a diameter of 6-7cm are preferred.
+The size of an objects is important. It is possible to detect objects of 1cm in width, if the object is placed exactly in the middle of the ultrasonic sensor. If the object is over 12cm in width, the claw to collect the object faces complications with the width of the claw. As the robot have to get close to an object to collect it, the width of the ultrasonic sensor can provide a reasonable measurement of the size it should be able to see. If the object is big enough to cover both the sender and receiver, it should be detected. The width is 5cm and given the position of the claw, square objects of size 6x6x6cm, or cylinder objects with a diameter of 6-7cm are preferred.
 
 Different weight of objects have been tested for the robots strength. The robots limit is around 150-200g depending on the object's surfaces friction. If an object is soft and the claw is able to squeeze it, the friction is higher and then the claw is more likely to lift it. It does not matter if the object weight is close to 0g, although the robot tend to push around the objects while trying to grab and if the object is too light there is a chance that it might tip over.
 

@@ -1,6 +1,6 @@
 \section{Robot behaviour} \label{sec:robot_behaviour}
-\fxnote{Skriv noget mere intro til dette}
-This section contains a short description of all the available states for the \projname{}. These states are used to determine what process the robot is currently in and to ensure that the robot is always doing as expected. All of the states and their connections can be seen in \figref{fig:robot-behaviour}.
+
+This section contains a short description of all the available states for the \projname{}. These states are used to determine what process the robot is currently in and to ensure that the robot is always doing as expected. There is a general structure every time a movement command is executed. At first it will be initialised in a \emph{Starting} state. This state is followed by another state which keeps looping the command until the target angle or distance have been met. The reasoning behind this type of representation can be found in \secref{sec:model}. All of the states and their connections can be seen in \figref{fig:robot-behaviour}.
 
 \begin{description}
 \item[Start searching for object] \hfill \\
@@ -13,7 +13,7 @@ In this state the \projname{} continue searching to the right until it finds an 
 If the \projname{} detects a black lines at any time the robot will change state to \emph{Start avoiding black line}. The robot will then configure the motor settings to start moving backward. After this the \projname{} change state to \emph{Avoiding black line}. 
 
 \item[Avoiding black line] \hfill \\
-This state will keep moving the the robot backward until it reach the amount of steps specified in the \emph{Start avoiding black line}. When the amount of steps is reached the \projname{} changes state to \emph{Start avoiding object}.
+This state will keep moving the the robot backwards until it reach the amount of steps specified in the \emph{Start avoiding black line}. When the amount of steps is reached the \projname{} changes state to \emph{Start avoiding object}.
 
 \item[Start avoiding object] \hfill \\
 In this state the robot will start rotating to avoid the object spotted on the opposite side of the boundary. After this the robot goes to \emph{Avoiding object}. 
@@ -43,6 +43,5 @@ In this state the robot will do the movement actions initialised in the \emph{St
 \begin{figure}[H]
      \center{\includegraphics[width=\textwidth]
      {graphics/RobotBehaviour.pdf}}
-     \caption{\label{fig:robot-behaviour} The robots different states and their connections}
+     \caption{\label{fig:robot-behaviour} The robot's different states and their connections}
 \end{figure}
-

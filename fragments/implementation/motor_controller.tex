@@ -1,0 +1,93 @@
+\section{Motor controller} \label{sec:motor-controller-imp} \fxnote{Flere subsections herinde}
+This section describes the implemented motor controller. As described in \secref{sec:design-motor-controller} the motor controller repeatedly checks the inputs from the motors and helps the robot drive more accurately. It makes sure that the robot will drive a certain distance precisely, as well as rotating a certain angle precisely utilising the compass sensor. Furthermore the implemented speed adjuster will keep the robot driving reliably and compensate for the variety in friction on different surfaces.
+
+The motor controller is implemented using logical expressions in an IF-THEN relationship, usually in the form IF <logical expression> THEN <logical expression>. It can be described using propositional logic. The robot uses a simple knowledge base to determine what is true about the world, or in this case, about the motors. The motor controller observes the world through the input from the motors. These observations are saved in the knowledge base and are used to make decisions on how to run the motors.
+
+The propositional logic described below is for moving forward and backwards. The rotation controller is omitted, since it functions in the same way as the moving controller. The motor controller include two parts one for adjust the speed and another part for moving the motor forward, backward or stop the motors. 
+
+The following $Motor\_\{X\}\_Steps$ variables are values returned from the motors,
+
+\hspace{3mm} $Motor\_L\_Steps$
+
+\hspace{3mm} $Motor\_R\_Steps$
+
+and the $Motor\_\{X\}\_Power$ variables are information given to the motors about how fast they should run.
+
+\hspace{3mm} $Motor\_L\_Power$
+
+\hspace{3mm} $Motor\_R\_Power$
+
+The variable below is the target step to reach for the robot. 
+
+\hspace{3mm} $Target\_Steps$
+
+It is worth to note that these variables are not Boolean values, but are represented as integers. They are used to determine if speed adjusting is needed or in which direction the robot is moving.
+
+If no speed adjusting is done and no checks are made on if the motors are running equally fast, the robot will not drive straight. Thus, speed adjusting is needed when one motor is ahead of the other in terms of steps. This is illustrated in the following propositions.
+
+\hspace{3mm} $motorR\_ahead \leftarrow Motor\_L\_Steps~<~Motor\_R\_Steps$
+
+\hspace{3mm} $motorL\_ahead \leftarrow Motor\_L\_Steps~>~Motor\_R\_Steps$ 
+
+The atomic proposition $motorR\_ahead$ illustrates if the right motor is ahead of the left motor in terms of steps. If $motorR\_ahead$ is true the motor controller will adjust the speed of the motors such that the left motor, motorL, catches up. The entire compound proposition says, that \textbf{if} $Motor\_L\_Steps~<~Motor\_R\_Steps$, meaning that the number of steps the left motor has run is less than what the right motor has run, then $motorR\_ahead$ is true.
+
+Same principle goes for $motorL\_ahead$. This illustrates the same but for the left motor instead of the right. $motorL\_ahead$ is true if $Motor\_L\_Steps~>~Motor\_R\_Steps$.
+
+The following proposition, $moving\_forward$, is similar to the two previous ones, but instead determines which direction the robot is moving, based on what values are sent to the motors. Negative $Motor\_\{X\}\_Power$ values means that said motor is moving forward. This means that if $Motor\_L\_Power < 0 \land Motor\_R\_Power < 0$, meaning both motors are moving forward, then $moving\_forward$ is true. Moving backwards will be referred to using $\lnot moving\_forward$.
+
+\hspace{3mm} $moving\_forward \leftarrow Motor\_L\_Power < 0 \land Motor\_R\_Power < 0$
+
+Now that a basis has been set for determining the robots direction and if speed adjustment is needed, some more propositions can be set up. The rest of the section will describe the actions actions the speed adjuster performs, as a set of multiple propositional definite clauses. The set of these definite clauses make up the knowledge base the motor controller utilises. All of the definite clauses are on the form $a \leftarrow b$, also known as a rule. The symbol on the left of the arrow is an atomic propersition/an atom and on the right is another atom or a conjunction of atoms.
+
+The first of the definite clauses are concerned with speed adjusting. The following two clauses are for the case where the robot is moving backwards. The first clause state that if $\lnot moving\_forward \land motorR\_ahead \land \lnot motorL\_ahead$ then $motor\_power\_increased$ is true. This means that if the robot is moving backwards because $moving\_forward$ is false, the right motor is ahead of the left because $motorR\_ahead$ is true and $motorL\_ahead$ is false, the speed of the left motor will be increased.
+
+\hspace{3mm} $motor\_power\_increased \leftarrow \lnot moving\_forward \land motorR\_ahead \land \lnot motorL\_ahead$ 
+
+The same goes for the second clause. If the robot is moving backwards and the left motor is ahead of the right one then $motor\_power\_decreased$ is true, and the power of the left motor will be decreased.
+
+\hspace{3mm} $motor\_power\_decreased \leftarrow \lnot moving\_forward \land \lnot motorR\_ahead \land motorL\_ahead$
+
+The next two clauses uses the same principles, but here the robot is moving forward. The $motor\_power\_decreased$ and $motor\_power\_increased$ atoms are true under the same conditions as in the previous two clauses.
+
+\hspace{3mm} $motor\_power\_decreased \leftarrow moving\_forward \land motorR\_ahead \land \lnot motorL\_ahead$
+
+\hspace{3mm} $motor\_power\_increased \leftarrow moving\_forward \land \lnot motorR\_ahead \land motorL\_ahead$
+
+% Motor backward, forward and stop
+
+Adjusting the speed of the motors is only one part of the motor controller. The following definite clauses describes how the motor controller ensures, that if the robot is given a distance to drive, it will drive that distance precisely and stop. The motor controller does the same for angles to rotate, but as mentioned previously, the propositional logic for this is omitted because it functions the same way as driving a distance.
+
+As with the case of speed adjusting, before setting up the definite clauses, a few other propositions are needed. The following two propositions determine when the robot is either ahead or behind the target distance. The atom $behind\_target$ is true if either of the motors steps are lower than the target steps. This means that the robot has not yet reached its target distance.
+
+\hspace{3mm} $behind\_target \leftarrow Motor\_L\_Steps~<~Target\_Steps \lor Motor\_R\_Steps~<~Target\_Steps$
+
+The same goes for the next proposition, $ahead\_of\_target$. This will be true if either of the motors steps are higher than the target steps. This means that the robot is past the target distance.
+
+\hspace{3mm} $ahead\_of\_target \leftarrow Motor\_L\_Steps~>~Target\_Steps \lor Motor\_R\_Steps~>~Target\_Steps$
+
+With these propositions set up, the definite clauses for the moving controller can be defined. The following clause state that if neither $behind\_target$ or $ahead\_of\_target$ are true, then $target\_distance\_reached$ is true. This means that if the robot has neither driven too far or not far enough, the robot will stop at this distance, which is the target distance.
+
+\hspace{3mm} $target\_distance\_reached \leftarrow \lnot behind\_target \land \lnot ahead\_of\_target$
+
+The following clause simply states that state that if the target distance has not been reached, $moving\_forward$ will be true, and the robot will move forward.
+
+\hspace{3mm} $moving\_forward \leftarrow behind\_target$
+
+Similar for the last clause states that $moving\_forward$ is false if the robot is past the target distance.
+
+\hspace{3mm} $\lnot moving\_forward \leftarrow ahead\_of\_target$
+
+With this knowledge base, the motor controller could be queried at any point about what is true in the world regarding the motors. The knowledge base is updated live as data are received from the motors. A query could for example be, $target\_distance\_reached$ true? The motor controller would check the knowledge base return an answer. This is essentially what the motor controller is doing in practice, repeatedly checking if some goals have been met.
+
+\begin{lstlisting}[caption= Calling the motor controller in the main task, label=lst:motor_controller]
+if(motorSetup.speedL != 0 && motorSetup.speedR != 0 && (motorSetup.driveDirection == Forward || motorSetup.driveDirection == Backward))
+{
+	setMotorSpeed(SpeedAdjuster(motorSetup.speedL, motorSetup.speedR, motorL.getCount(), motorR.getCount(), motorSetup.driveDirection),motorSetup.speedR);
+}
+else if(motorSetup.speedL != 0 && motorSetup.speedR != 0 && (motorSetup.driveDirection == Left || motorSetup.driveDirection == Right))
+{
+    setMotorSpeed(RotationSpeedAdjuster(motorSetup.speedL, motorSetup.speedR, motorL.getCount(), motorR.getCount(), motorSetup.driveDirection),motorSetup.speedR);
+}
+\end{lstlisting}
+
+The motor controller is called at the beginning of the main task. As shown in \lstref{lst:motor_controller} it will adjust the speed of the motors as long as the robot is either driving or rotating.
