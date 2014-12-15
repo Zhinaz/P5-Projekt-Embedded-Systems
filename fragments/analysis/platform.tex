@@ -2,52 +2,20 @@
 To build the \projname{}, a platform has to be chosen. There exist multiple platforms for which it is possible to develop an autonomous robot such as the \projname{}. This section looks into some of the most accessible platforms to consider when creating an embedded system. The chosen platform is further described along with its specifications.
 
 \subsection{Arduino}
-The first platform considered was the Arduino. The Arduino single-board micro controller is an open-source hardware platform, intended to make the creation of small, interactable devices accessible to students. As such, it has a fairly low price. The Arduino comes with a fully equipped Integrated Development Environment (IDE), and can be programmed in either C or C++\citep{arduino}.
+The first platform considered was the Arduino. The Arduino single-board micro controller is an open-source hardware platform, intended to make the creation of small, interactable devices accessible to students. As such, it has a fairly low price. The Arduino comes with a fully equipped Integrated Development Environment (IDE), and can be programmed in either C or C++~\citep{arduino}.
 
 \subsection{Raspberry Pi}
-Another platform that was considered for the \projname{} was the Raspberry Pi. The Raspberry Pi is developed by the Raspberry Pi Foundation as a single board computer, the size of a credit card. It is a microcomputer, which is able to perform various tasks, such as word processing and video transmitting. The specifications vary depending on the model. Model A, has a 700MHz CPU, 256MB memory and needs a SD card for storage. The operating system(OS) is based on Linux and two of the available OSes are Raspbian and Arch Linux\citep{raspberry_pi}.
+Another platform that was considered for the \projname{} was the Raspberry Pi. The Raspberry Pi is developed by the Raspberry Pi Foundation as a single board computer, the size of a credit card. It is a microcomputer, which is able to perform various tasks, such as word processing and video transmitting. The specifications vary depending on the model. Model A, has a 700MHz CPU, 256MB memory and needs a SD card for storage. The operating system(OS) is based on Linux and two of the available OSes are Raspbian and Arch Linux~\citep{raspberry_pi}. 
 
 \subsection{Lego NXT} \label{sec:lego_nxt}
-The last considered platform was the LEGO Mindstorm NXT 2.0. It consists of a series of sensors and motors that are all connected to a programmable NXT Intelligent Brick(NXT Brick). The construction itself can be built with bricks from the LEGO Technic series. The primary component in the Mindstorm NXT series is the NXT Brick, which is used to control the components connected the it. The NXT Brick has four input sockets which can be used for various sensors and three output sockets which are used to send signals to the motors that controls the robot. The NXT Brick is also equipped with a 100x64 pixel LCD screen which can be freely programmed pixel by pixel~\citep{lego_nxt_2.0}.
-
-The NXT Brick has integrated Bluetooth, which allows interaction between the multiple NXT Bricks in a master-slave relationship with a maximum of 3 slaves pr. master. This allows the master-brick to send commands to the slave-bricks' output sockets and because of that, a single brick is able control more than the three motors a single NXT Brick otherwise would be limited to~\citep{lego_edu_guide}.
+The last considered platform was the LEGO Mindstorm NXT 2.0. It consists of a series of sensors and actuators that are all connected to a programmable NXT Intelligent Brick(NXT Brick). The construction itself can be built with bricks from the LEGO Technic series. The primary component in the Mindstorm NXT series is the NXT Brick, which is used to control the components connected the it. The NXT Brick has four input sockets which can be used for various sensors and three output sockets which are used to send signals to the motors that controls the robot~\citep{lego_nxt_2.0}.
 
 \subsection{Choice of platform}
 All of these three platforms are good choices for creating an embedded system. Each of them have their positive and negative aspects, but in regards to the requirements of the \projname{} it was been decided that the Lego NXT is the most suitable platform for this project.
 
-An advantage with LEGO NXT is that it is straightforward to create and construct a working robot prototype. The set of bricks includes a wide variety of different parts for constructing advanced LEGO machines. 
-%, without the need to use any kind of welding tools in the process. As mentioned previously, constructing the body of the robot, can be done with parts from the LEGO Technic series. For example pins, tapes and wheels, as well as shafts, gears and many different sized and shaped beams with circular holes for pins
+LEGO NXT includes motors and sensors built for the NXT. All sensors and motors as well as the NXT Brick itself are constructed in such a way, that they are straightforward to assemble with the LEGO Technic parts. 
 
-Furthermore the NXT includes motors and a wide variety of different sensors built for the NXT. All sensors and motors as well as the NXT Brick itself are constructed in such a way, that they are straightforward to put together with the LEGO Technic parts.
-%The components can be connected with LEGO connector cables using RJ12 plugs in both ends.
-
-The choice ended on LEGO NXT. It have been widely used for building robotic projects in the faculty and it was therefore the natural choice. This would also resulted in more time to program the robot rather than welding the robot together and writing drivers for all of the sensors. A lot of the sensors and motors existing for the LEGO NXT was already purchased for earlier projects and there would therefore not be any waiting time in case a sensor, that was not a part of the basis kit, was needed.
-
-The actual construction of the body of the robot is more cumbersome with the Arduino or Raspberry Pi. Getting the electronics working requires a lot of wiring and soldering, while building the actual body might require welding the parts together and generally put a lot more emphasis on the physical components. This would require effort and time, outside the scope of the project, and by choosing the LEGO NXT this extra time can be used to program the \projname{}.
+Furthermore, LEGO NXT has been widely used for building robotic projects in the faculty and it was therefore the natural choice. The actual construction of the body of the robot is more cumbersome with the Arduino or Raspberry Pi. Getting the electronics working requires a lot of wiring and soldering while building the actual body might require welding the parts together and generally put a lot more emphasis on the physical components. New device drivers would also have to be written for the sensors and motors to function. This would require effort and time, outside the scope of the project, and by choosing the LEGO NXT this extra time can be used to program the \projname{}.
 
 
 
-%The actual construction of the body of the robot is more cumbersome with the Arduino or Raspberry Pi. Getting the electronics working requires a lot of wiring and soldering, while building the actual body might require welding the parts together and generally put a lot more emphasis on the physical components. Thus, choosing the LEGO NXT as the platform for the \projname{} will save a lot of construction time compared to the Arduino and the Raspberry Pi, which provides extra time to put more emphasis on programming the robot.
-
-%Another element that has to be considered is the capacity and capabilities of the different hardware platforms. Since the \projname{} is an embedded system it is important to consider the limitations of each platform and make sure the chosen platform has sufficient specifications to fulfil the requirements of the system. %It is also worth to consider not using a more expensive platform with unnecessary large specifications, if the system requires a lot less to run. It is preferred to use a platform that does not waste resources, but is still powerful enough to drive the system.
-
-%The Raspberry Pi is a relatively powerful platform, based on it's size, but all this power is not necessary for what the \projname{} needs to do. The Arduino has many different models and finding a suitable one for the \projname{}, while possible, still requires a lot of construction work as mentioned earlier. It has been estimated that the LEGO NXT as a platform is sufficient for the requirements of the \projname{} and combined with the more accessible robot construction, would be most suitable for the project. %it has been decided that this is the best platform for the \projname{}. 
-
-%\begin{table}[H]
-%	\centering
-%	\ra{1.3}
-%	\rowcolors{1}{Gray}{}
-%    \begin{tabular}{|lc|}
-%    \hline  
-%    \rowcolor{DGray}
-%    Hardware~~~~~~~~~~~~~~    & LEGO NXT Brick specification    \\ \hline 
-%    Processor &  Atmel 32-Bit ARM - 48 MHz - 256 KB FLASH-RAM - 64 KB RAM \\ 
-%    Co-Processor     & Atmel 8-Bit AVR - 8 MHz - 4 KB FLASH-RAM - 512 Byte RAM \\ 
-%    Sensor ports     & 4 analog/digital \\
-%    Motor ports   & 3 \\
-%    Display     & LCD Matrix - monochrome 100 x 64 Pixel \\
-%    Communication     & Bluetooth and USB 2.0 \\
-%    \hline 
-%    \end{tabular}
-%    \caption{\label{table:lego_nxt_specs} Hardware specification for the LEGO NXT 2.0 Brick.}
-%\end{table}
