@@ -1,12 +1,12 @@
 \section{Algorithm design} \label{sec:algorithm-design}
 
-In order to solve the \emph{travelling salesman problem}, as described in \secref{sec:problem-description}, a heuristic is needed. Since it is not feasible to solve the problem of finding the shortest route possible, an algorithm that provides an acceptable solution will be chosen instead.
+In order to solve the \emph{travelling salesman problem}, as described in \secref{sec:problem-description}, a heuristic is needed. Since it is not feasible to solve the problem of finding the optimal path, an algorithm that provides an acceptable solution will be chosen instead.
 
 Two algorithms have been proposed and designed in this project: one is more intelligent and takes all the relative distances between the objects into account, while the other is very reactive. These two algorithms are, respectively, the \emph{nearest neighbour (NN) algorithm} and the \emph{next-in-view (NIV) algorithm}.
 
 
 \subsection{Nearest neighbour algorithm} \label{sec:nn-algorithm}
-The NN-algorithm starts by doing a 360 degrees turn while scanning the nearby area around it for objects. The distance and angle for each object are saved and when the robot is done scanning, a route will be calculated using trigonometry and the NN-algorithm concepts. These calculations will result in an array of instructions containing distances and angles. Each instruction will take the robot from the current position to the next object in sequence. The robot should scan after completing the route, to ensure that all objects has been collected, in case it didn't collect all of the objects. The \projname{} computes the entire route before moving.
+The NN-algorithm starts by doing a 360 degrees turn while scanning the nearby area around it for objects. The distance and angle for each object are saved and when the robot is done scanning, a route will be calculated using trigonometry and the NN-algorithm concepts. These calculations will result in an array of instructions containing distances and angles. Each instruction will take the robot from the current position to the next object following the calculated route. The robot should scan after completing the route, to ensure that all objects has been collected, in case it didn't collect all of the objects. The \projname{} computes the entire route before moving.
 
 The algorithm uses trigonometry to select the next object, by using the current position, the starting position and the position of the next object. These positions are in relation to the starting position, where all the objects positions were found. The amount of degrees the \projname{} must turn, in order to get to the same heading as the next object, is saved as instructions, along with the distance that needs to be travelled in order to get to it. 
 
@@ -14,7 +14,7 @@ These instructions must then be followed after the route has been calculated. \f
 
 \begin{figure}[H]
      \center{\includegraphics[width=\textwidth]
-     {graphics/objectnavigationfirst.png}}
+     {graphics/ObjectNavigationFirst.pdf}}
      \caption{\label{fig:object_navigation_first} First object to be collected.}
 \end{figure}
 
@@ -42,7 +42,7 @@ In order to point the \projname{} at the starting position again, the current he
 
 \begin{figure}[H]
      \center{\includegraphics[width=\textwidth]
-     {graphics/objectnavigationiteration.png}}
+     {graphics/ObjectNavigationIteration.pdf}}
      \caption{\label{fig:object_navigation_iteration} Iteration of objects to be collected.}
 \end{figure}
 
@@ -52,7 +52,7 @@ An important property of the Next-in-view algorithm, is that it does not do any 
 
 \begin{figure}[H]
      \center{\includegraphics[width=\textwidth]
-     {graphics/objectnavigationniv.png}}
+     {graphics/ObjectNavigationNIV.pdf}}
      \caption{\label{fig:object_navigation_niv} Start-up using the Next-in-view algorithm}
 \end{figure}
 
@@ -60,7 +60,7 @@ At start-up the robot starts turning until it spots an object with the ultrasoni
 
 \begin{figure}[H]
      \center{\includegraphics[width=\textwidth]
-     {graphics/objectnavigationniv2.png}}
+     {graphics/ObjectNavigationNIV2.pdf}}
      \caption{\label{fig:object_navigation_niv2} Searching for the next object}
 \end{figure} 
 
@@ -71,7 +71,7 @@ In this case, a small routine will be initiated, where the robot will turn a lit
 
 \subsection{Algorithm comparison} \label{sec:algorithm-desc}
 
-The shortest route between the object can be brute forced by trying out every single possible route between the start position and all of the objects. This would have a calculation time of $\mathcal{O}(n!)$, which means that with every object added, the running time greatly increases. This gives the robot problems when calculating the shortest route, if the amount of objects exceeds a certain number, due to its limited processing power. If there are 9 objects for instance, the number of different paths to check exceeds 360,000. This is an example of the travelling salesman problem as described in \secref{sec:problem-description}. 
+The shortest route between the objects can be brute forced by trying out every single possible route between the start position and all of the objects. This would have a calculation time of $\mathcal{O}(n!)$, which means that with every object added, the running time greatly increases. This gives the robot problems when calculating the shortest route, if the amount of objects exceeds a certain number, due to its limited processing power. If there are 9 objects for instance, the number of different paths to check exceeds 360,000.  
 
 A faster, but less distance-efficient algorithm is the NN-algorithm. The algorithm calculates a route based on which objects are closest together. This means that the distance to all the points are calculated from the starting point and the shortest distance is chosen. This is then repeated from the new point, but this time it does not include the objects from previously visited points. This results in a worst case calculation time of $\mathcal{O}(n^2)$, although as the number of remaining objects decreases for each object added to the route, described by $\sum\limits_{i=n}^n i = i - 1$, the calculation time decreases for each object. Compared to the brute force, this algorithm uses only a fraction of the time to compute the result. 
 
@@ -94,17 +94,9 @@ The different algorithms result in the routes shown in \figref{fig:algorithm-exa
 
 In the average case, the difference between the NN-algorithm and the NIV solutions would be larger if there were more objects to consider. However for these smaller cases, the difference is almost negligible. It should be noted, that this does not describe the time spent, only the distance travelled: rotation to scan for objects, for both algorithms, takes different amounts of time depending on the case. This is not accounted for here.
 
-Due to the limitations of the LEGO NXT brick and the complexity of the problem, finding the optimal solution was ruled out as a possibility. The NN-algorithm maps all objects in the environment, and constructs a route to all the objects before it begins collecting them. The NIV-algorithm is very ad hoc in nature, in that it simply goes for the first object that the robot spots after each scanning cycle is initiated. The NN-algorithm is expected to yield the most efficient results, however based on the hardware test of the ultrasonic sensor in \secref{sec:ultrasonic_sensor}, it was deemed unlikely that it would work in practice, since it heavily relies on accurate information about the location of objects in the environment. Due to this, the NN-algorithm was designed in the case that it would work in practice, however the NIV-algorithm was designed and implemented first, as insurance that the robot would be able to complete its task, however not as efficiently.
+Due to the limitations of the LEGO NXT brick and the complexity of the problem, finding the optimal solution was ruled out as a possibility. The NN-algorithm maps all objects in the environment, and constructs a route to all the objects before it begins collecting them. The NIV-algorithm is very ad hoc in nature, in that it simply goes for the first object that the robot spots after each scanning cycle is initiated. 
+
+The NN-algorithm is expected to yield the most efficient results, however based on the hardware test of the ultrasonic sensor in \secref{sec:ultrasonic_sensor}, it was deemed unlikely that it would work in practice, since it heavily relies on accurate information about the location of objects in the environment. Due to this, the NN-algorithm was designed in the case that it would work in practice, however the NIV-algorithm was designed and implemented first, as insurance that the robot would be able to complete its task, however not as efficiently.
 
 As mentioned in the test case from \secref{sec:nn-algorithm}, the difference between the two algorithms' distance were nearly insignificant. This also means that using a state-based representation of the world is preferred, where each state represents the robots behaviour. If the NN-algorithm were used, a feature based representation would be better suited for the \projname{}, because of the need to map the location of each found object in relation to the environment.
-
-
-
-
-
-%After the \projname{} has completed its initial 360 degree search and stored the information about the nearby objects, it is time to calculate a route between said objects. Due to the limited power and calculation speed of the LEGO NXT brick it is necessary to find an efficient algorithm that is fast and does not take a lot of computational power and space, in addition to finding a short route to all the objects. 
-
-%After all the objects have been spotted, using the 360 degree search, an intelligent route to pick up these objects is needed. As mentioned in \secref{sec:problem-description}, the problem the \projname{} is dealing with is a form of the ``travelling salesman problem''. In order to solve this problem, the algorithm ``Nearest neighbour''(NN) algorithm is used. 
-
-%Another way to solve the problem is by using a ``Next-in-view'' algorithm, that rely on a constant update from the sensors. Moving until the sensors detects something relevant. 
 

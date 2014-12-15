@@ -1,6 +1,6 @@
 \section{Implementation procedure} \label{sec:imp-procedure}
 
-To implement the features listed in \charef{cha:design}, a stepwise approach was utilised. First, the finished design concept was cut into modules, each with a clearly defined, separate task to accomplish. These modules are what constitutes the final product, however it is possible to implement each of them independently of the others. The modules were ordered according to their importance and relevance to the final product's overall quality, and then tested and implemented in the order seen below.
+To implement the features listed in \charef{cha:design}, a iterative approach was utilised. First, the finished design concept was cut into modules, each with a clearly defined, separate task to accomplish. These modules are what constitutes the final product, however it is possible to implement each of them independently of the others. The modules were ordered according to their importance and relevance to the final product's overall quality, and then tested and implemented in the order seen below.
 
 \begin{enumerate}
 \item Basic movement
@@ -24,7 +24,6 @@ To visualise these modules, a flowchart tool was used to map the different actio
      {graphics/CompleteRobotFlowchart.pdf}}
      \caption{\label{fig:CompleteRobotFlowchart} Flowchart of the robot and its behaviour.}
 \end{figure}
-\fxnote{Add description to Brown box}
 
 In the diagram in \figref{fig:CompleteRobotFlowchart}, the sections are coloured according to what functionality they fulfil. The previously mentioned iterations often focus on one of the particular partitions of the flowchart. The iterations are described below.
 
@@ -38,11 +37,11 @@ In the second iteration, the robotic arm and claw used to collect objects were d
 
 
 \subsubsection{Third iteration --- Bluetooth communication}
-With the \projname{} being able to move, controlled by one of the NXT brick, and a claw and arm capable of collecting objects controlled by another brick, communication between these two bricks was the next priority to implement. This was done using the inherent Bluetooth-capabilities of the bricks. The master brick sends instructions to the slave brick, and await confirmation from the slave brick, when the task is done. This allowed for the code and behaviour to be centralised on one brick, only communicating simple instructions once in a while over Bluetooth.
+With the \projname{} being able to move, controlled by one of the NXT brick, and a claw and arm capable of collecting objects controlled by another brick, communication between these two bricks was the next priority to implement. This was done using the inherent Bluetooth-capabilities of the bricks. The master brick sends instructions to the slave brick, and awaits confirmation from the slave brick, when the task is done. This allowed for the code and behaviour to be centralised on one brick, only communicating simple instructions once in a while over Bluetooth.
 
 
 \subsubsection{Fourth iteration --- Boundary detection}
-This iteration implemented the colour sensors, and made it possible to detect the environment boundaries. This includes functionality to stop, reverse, and turn away from the detected line, searching for new objects. This entire feature runs in a thread by itself. This corresponds to the green part in \figref{fig:CompleteRobotFlowchart}. 
+This iteration implemented the colour sensors, and made it possible to detect the environment boundaries. This includes functionality to stop, reverse, and turn away from the detected line, searching for new objects. The background procedure should be called constantly, in order to keep the colour sensors ready. This is done in a separate thread and the use of the colour sensors is done in the main task. This corresponds to the green part in \figref{fig:CompleteRobotFlowchart}. 
 
 
 \subsubsection{Fifth iteration --- Object detection}
@@ -54,7 +53,7 @@ This iteration focused on implementing the next-in-view algorithm to find and co
 
 
 \subsubsection{Seventh iteration --- Advanced movement}
-During this iteration a motor controller was developed, to ensure that the motors drive alike, in the amount of steps driven. This motor controller is used to drive straight forwards and backwards with greater precision, than the basic movement it replaces. Another motor controller was developed, but this one is used to turn the \projname{} with precision. This motor controller is used to turn a given amount of degrees, or get to a heading, choosing the most relevant turning direction. This feature is shown in the brown part in \figref{fig:CompleteRobotFlowchart}.
+During this iteration a motor controller was developed, to ensure that the motors drive precisely and reach the specified position. This motor controller is used to drive straight forwards and backwards with greater precision, than the basic movement it replaces. Another motor controller was developed, but this one is used to turn the \projname{} with precision. This motor controller is used to turn a given amount of degrees, or get to a heading, choosing the most relevant turning direction. This feature is shown in the brown part in \figref{fig:CompleteRobotFlowchart}.
 
 
 \subsubsection{Eight iteration --- Advanced route navigation}
