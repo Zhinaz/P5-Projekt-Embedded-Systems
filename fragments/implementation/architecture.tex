@@ -1,20 +1,38 @@
 \section{Architecture} \label{sec:architecture}
-This section focuses on the architecture of the program. Firstly, tasks, events, and alarms used in the \projname{} are discussed.
-
-\subsection{Tasks, events, and alarms} \label{sec:task-events-alarms}
-This section focuses on the tasks, events, and alarms used in the \projname{}. These are all declared in an OSEK Implementation Language (OIL) specification. All the static declaration of system objects are specified in the OIL file. The OIL specification and the code makes up the program~\citep{nxtOSEK2}. The following subsections focuses on tasks, events, and alarms, what they are and how they are used in the \projname{}.
+This section focuses on the architecture of the program. The architecture consists of tasks, events and alarms. These are all declared in an OSEK Implementation Language (OIL) specification. All the static declarations of system objects are specified in the OIL file. The OIL specification and the code makes up the program~\citep{nxtOSEK2}. The following subsections focuses on tasks, events, and alarms, what they are and how they are used in the \projname{}.
 
 \subsubsection{Tasks} \label{sec:tasks}
-nxtOSEK utilises task to control the program execution, where it is possible to have multiple tasks in one program. There is always a main task from which the primary code is executed. Another common task is one that ensures that certain sensors keeps doing their job. For example if the robot is equipped with colour sensors, the tasks will have to keep pinging the colour sensors which will keep them activated. This sort of task will have to follow a clock to ensure that there is always the same amount of time between each ping to the colour sensor. Each task must be declared in the OIL file. 
-
-The \projname{} contains two tasks: the ``Main'' task, and the ``Background'' task. The Main task contains the primary controls and states of the robot, all within a while loop that keeps the robot going. The Background task is constantly running with two assignments. It keeps pinging the colour sensors background process, to keep them active. Secondly, if a signal has been sent to the slave brick, it waits for the slave brick to respond, when it is done collecting an object. The OS handles which task is executed, depending on the priority of the task. 
+nxtOSEK utilises tasks to control the program execution, where it is possible to have multiple tasks in one program. The \projname{} uses a main task, from which the primary code is executed. The Main task contains the primary controls and states of the robot, all within a while-loop that keeps the robot going. Tasks can also be used for background tasks. The \projname{} is equipped with colour sensors, and a corresponding task has to keep pinging the colour sensors, in order to keep the sensors activated and ready. This background task also checks for signals from the slave brick, if this is expected. The nxtOSEK OS handles which task is executed, depending on the priority of the task, ensuring that each task gets CPU time.
 
 \subsubsection{Events} \label{sec:events}
-An event, is a trigger, that activates when a certain condition has been met. In nxtOSEK, events can be triggered by an alarm or by signalling the event in the program. The event only has a single attribute, a MASK. This is an integer number, which can be assigned by using AUTO or by manually assigning a number using hexadecimal. The MASK is used to reference the event~\citep{osekoil}. 
-
-The event is the only event in the \projname{}. It is used to trigger the alarm, at the beginning of the loop in the Main task. 
+An event is a trigger, that activates when a certain condition has been met. In nxtOSEK, events can be triggered by an alarm or by signalling the event in the program. The \projname{} uses a single event, an event to ensure that the ultrasonic sensor is not pinged too often. There is a limit on how often it can be called, to ensure that the ultrasonic sensor does not fail and instead provide correct values. This event is activated by an alarm. 
 
 \subsubsection{Alarms} \label{sec:alarms}
-The alarm can be used for a few tasks; activate a task, trigger an event or activate an alarm-callback routine. The alarm is run on a counter, and when this counter has been met, the associated action is performed. The alarm has a few attributes, first there is a COUNTER assigning, where a counter is associated with the alarm. Then the ACTION attribute is set, by describing what ACTION is performed, when the alarm has met its goal. The last attribute is the AUTOSTART attribute, that describes if the alarm action should be triggered at program start~\citep{osekoil}.
+Alarms in nxtOSEK have a variety of functionalities; activate a task, trigger an event or activate an alarm-callback routine. The alarm is run on a counter and when this counter has been met, the associated action is performed~\citep{osekoil}. The \projname{} uses an alarm, and counter, to ensure that the ultrasonic sensor functions correctly. The alarm is started by the background task, and is set to activate the event every 100 ms. 
 
-The alarm on, is used in triggering an action for the background processes of boundary detection and Bluetooth connection. An alarm is set when the colour sensors are initialised. This is the only alarm used in \projname{}.
+
+
+
+
+
+
+%\section{Architecture} \label{sec:architecture}
+%This section focuses on the architecture of the program. Firstly, tasks, events, and alarms used in the \projname{} are discussed.
+
+%\subsection{Tasks, events, and alarms} \label{sec:task-events-alarms}
+%This section focuses on the tasks, events, and alarms used in the \projname{}. These are all declared in an OSEK Implementation Language (OIL) specification. All the static declaration of system objects are specified in the OIL file. The OIL specification and the code makes up the program~\citep{nxtOSEK2}. The following subsections focuses on tasks, events, and alarms, what they are and how they are used in the \projname{}.
+
+%\subsubsection{Tasks} \label{sec:tasks}
+%nxtOSEK utilises task to control the program execution, where it is possible to have multiple tasks in one program. There is always a main task from which the primary code is executed. Another common task is one that ensures that certain sensors keeps doing their job. For example if the robot is equipped with colour sensors, the tasks will have to keep pinging the colour sensors which will keep them activated. This sort of task will have to follow a clock to ensure that there is always the same amount of time between each ping to the colour sensor. Each task must be declared in the OIL file. 
+
+%The \projname{} contains two tasks: the ``Main'' task, and the ``Background'' task. The Main task contains the primary controls and states of the robot, all within a while loop that keeps the robot going. The Background task is constantly running with two assignments. It keeps pinging the colour sensors background process, to keep them active. Secondly, if a signal has been sent to the slave brick, it waits for the slave brick to respond, when it is done collecting an object. The OS handles which task is executed, depending on the priority of the task. 
+
+%\subsubsection{Events} \label{sec:events}
+%An event, is a trigger, that activates when a certain condition has been met. In nxtOSEK, events can be triggered by an alarm or by signalling the event in the program. The event only has a single attribute, a MASK. This is an integer number, which can be assigned by using AUTO or by manually assigning a number using hexadecimal. The MASK is used to reference the event~\citep{osekoil}. 
+
+%The event is the only event in the \projname{}. It is used to trigger the alarm, at the beginning of the loop in the Main task. 
+
+%\subsubsection{Alarms} \label{sec:alarms}
+%The alarm can be used for a few tasks; activate a task, trigger an event or activate an alarm-callback routine. The alarm is run on a counter, and when this counter has been met, the associated action is performed. The alarm has a few attributes, first there is a COUNTER assigning, where a counter is associated with the alarm. Then the ACTION attribute is set, by describing what ACTION is performed, when the alarm has met its goal. The last attribute is the AUTOSTART attribute, that describes if the alarm action should be triggered at program start~\citep{osekoil}.
+
+%The alarm on, is used in triggering an action for the background processes of boundary detection and Bluetooth connection. An alarm is set when the colour sensors are initialised. This is the only alarm used in \projname{}.

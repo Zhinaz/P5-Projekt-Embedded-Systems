@@ -97,7 +97,7 @@ The test of the compass sensor is performed the following way: First the sensor 
 After the initial calibration the robot is placed facing in a direction close to north, which means a heading of around 0 degrees. The robot then performs a 720 degrees spin while the heading is being logged. Turning clockwise the returned value should be a linear increasing value from 0 and up, until 0 degrees is hit again when the robot is facing north. Turning counter-clockwise, the returned value should quickly jump to 359 degrees and linearly decrease while spinning, until north is found again. This will repeat for every 360 degrees the robot does.
 
 \begin{figure}[H]
-     \center{\includegraphics[scale=1]
+     \center{\includegraphics[width=320pt]
      {graphics/DegreesGraph.png}}
      \caption{\label{fig:compass_sensor_test_graph} The measured degrees from a 720 degrees counter clockwise turn.}
 \end{figure}

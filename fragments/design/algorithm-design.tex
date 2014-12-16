@@ -64,7 +64,7 @@ At start-up the robot starts turning until it spots an object with the ultrasoni
      \caption{\label{fig:object_navigation_niv2} Searching for the next object}
 \end{figure} 
 
-Because the ultrasonic sensors view is a cone, as described in \secref{sec:hardware}, a case may arise where the robot is not driving straight towards the object. But as it gets closer, it might lose the object as it gets out of the view of the sensor.
+Because the ultrasonic sensors view is a cone, as described in \secref{sec:hardware}, a case may arise where the robot is not driving straight towards the object. And as it gets closer, it might lose the object as it gets out of the view of the sensor.
 
 In this case, a small routine will be initiated, where the robot will turn a little to the right, followed by a little to the left, constantly scanning for objects, while slowly increasing the angles turned to scan an increasingly larger range. When an object is spotted again, the robot continues to move towards it. When the object has been collected, the robot starts turning until it finds a new object and the entire process continues until every object has been found.
 

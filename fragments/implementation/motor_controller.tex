@@ -1,12 +1,29 @@
 \section{Motor controller} \label{sec:motor-controller-imp} 
-This section describes the implemented motor controller. As described in \secref{sec:design-motor-controller} the motor controller repeatedly gets the current amount of steps from the motors and helps the robot drive more accurately. It makes sure that the robot will drive a certain distance precisely, as well as rotating a certain angle precisely, utilising the compass sensor. Furthermore the implemented speed adjuster will keep the robot driving reliably and compensate for the variety in friction on different surfaces and the motors difference.
+This section describes the implemented motor controller. As described in \secref{sec:design-motor-controller}, the motor controller repeatedly gets the current amount of steps from the motors and helps the robot drive more accurately. The motor controller makes sure that the robot will drive a certain distance precisely, as well as rotating a certain angle precisely. Furthermore, the implemented speed adjuster will keep the robot driving reliably and compensate for the variety in friction on different surfaces and the motors difference.
 
-The motor controller is implemented using logical expressions in an IF-THEN relationship, usually in the form IF <logical expression> THEN <logical expression>. It can be described using propositional logic. The robot uses a simple knowledge base to determine what is true about the world, or in this case, about the motors. The motor controller observes the world through the input from the motors and make decisions on how to change the speed of the motors, based on these observations.
+The motor controller is implemented using logical expressions in an IF-THEN relationship, usually in the form IF <logical expression> THEN <logical expression>. It can be described using propositional logic. The robot uses a knowledge base to determine what is true about the world, or in this case, about the motors. The motor controller observes the world through the input from the motors and makes decisions on how to change the speed of the motors, based on these observations.
+
 
 \subsection{Propositional logic}
 
 The propositional logic described below is for moving forward and backwards. The rotation controller is omitted, since it functions alike, though with directional changes. The implemented motor controller is split into the two goals, as described in \secref{sec:design-motor-controller}. 
 
+
+\begin{equation} \label{eq:motorsteps}
+\begin{split}
+Motor\_L\_Steps \\
+Motor\_R\_Steps
+\end{split}
+\end{equation}
+
+\begin{equation} \label{eq:motorpower}
+\begin{split}
+Motor\_L\_Power \\
+Motor\_R\_Power
+\end{split}
+\end{equation}
+
+\begin{comment}
 The following $Motor\_\{X\}\_Steps$ variables are values returned from the motors;
 
 \hspace{3mm} $Motor\_L\_Steps$
@@ -22,6 +39,7 @@ and the $Motor\_\{X\}\_Power$ variables are information given to the motors abou
 The variable below is the target step to reach for the robot. 
 
 \hspace{3mm} $Target\_Steps$
+\end{comment}
 
 It is worth noting that these variables are not Boolean values, but are represented as integers. They are used to determine if speed adjusting is needed or in which direction the robot is moving.
 
