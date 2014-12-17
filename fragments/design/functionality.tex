@@ -5,15 +5,13 @@ In this section the overall functions and the different parts of the \projname{}
 The two NXT bricks used for the robot is required to communicate in order to start and stop certain tasks. The integrated Bluetooth is used for communication between the NXT bricks. One of the two NXT bricks is chosen to be the master and the other one is the slave. The master unit controls the primary task of the robot, while the slave is used to handle a smaller, parallel task when receiving instructions from the master unit. 
 
 \subsection{Colour sensor} 
-The robot is equipped with two colour sensors on the front of the robot, at each side. This is used to detect the black lines that specify the boundary of the environment. Based on the returned light the colour sensors return the RGB value to the NXT brick. The two colour sensors are handled by the master unit. 
+The robot is equipped with two colour sensors on the front of the robot, one at each side. This is used to detect the black lines that specify the boundary of the environment. Based on the returned light the colour sensors return the RGB value to the NXT brick. The two colour sensors are handled by the master unit. 
 
 \subsection{Ultrasonic sensor}
 The ultrasonic sensor is placed in the front of the robot, just under the claw. This is used to detect the distance to the objects in front of the robot. The master unit is controlling the ultrasonic sensor.
 
 \subsection{Compass sensor}
-The compass sensor is placed on the top or the robot, at the end of an arm, so that it is located as far from the bricks and motors as possible. This is to reduce the noise from the bricks and motors magnetics fields. The sensor is pointing in the same direction as the robot.
-
-The compass sensor is used to help ensure precision in the robots movement. This increased precision in movement is used when searching for objects, and when turning to the exact degree where the next object is located.
+The compass sensor is placed on the top or the robot, at the end of an arm, so that it is located as far from the bricks and motors as possible. This is to reduce the noise from the magnetics fields created by these components. The sensor is pointing in the same direction as the robot. The compass sensor is used to help ensure precision in the robots movement. This increased precision in movement is used when searching for objects.
 
 \subsection{Interactive servo motor}
 The four interactive servo motors is used for two tasks. The first task is to move the robot around the environment. This includes driving forward, backward, and turning. The second task is the arm and the claw. This task consist of squeezing the claw around a detected object and holding this until the arm has reached the point, where the claw can let go of the object, and this lands in the storage behind the robot. Then the arm returns to the starting position, ready to grab a hold of new objects. Both task use 2 motors. The driving task is handled by the master unit, and the collection task is handled by the slave unit.

@@ -21,11 +21,11 @@ The area was a rectangle with the dimensions 1 m times 1.5 m framed by a layer o
 
 \section{Results}
 
-All the requirements were tested in one combined test. For each module of functionality, observations were made during the test. The observations for all three requirements are listed below.
+All the requirements were tested in one combined test. For each module of functionality, observations were made during the tests. The observations for all three requirements are listed below.
 
 \textbf{Navigate the environment within the boundaries}
 \begin{itemize}
-\item Sometimes the robot does not detects the black lines before its too late.
+\item Sometimes the robot does not detect the black lines before it is too late.
 \item The width of the black lines is important. If the black lines is too thin the robot is less likely detect the boundary.
 \end{itemize}
 
@@ -37,8 +37,8 @@ All the requirements were tested in one combined test. For each module of functi
 
 \textbf{Find and collect all objects within the time limit}
 \begin{itemize}
-\item If the distance between the objects is too large, the robot will never find all the objects. 
-\item The time used to find objects increases if there is objects on the other side of the black lines.  
+\item If the distance between the objects is too large, the robot will never find all the objects. This is a matter of the ultrasonic sensor waves not returning fast enough before the robot have rotated too far away from where they were sent out.
+\item The time used to find objects increases if there are objects on the other side of the black lines. This is because that after hitting the black line, the \projname{} will deem the spotted object on the other side unreachable and the time spent driving towards it will be wasted.
 \end{itemize}
 
 \begin{table}[H]
@@ -57,7 +57,7 @@ All the requirements were tested in one combined test. For each module of functi
    \caption{\label{table:FinalTimeTestRobot} Time test of the robot}
 \end{table}
 
-In addition to the observations the \tblref{table:FinalTimeTestRobot} shows the time result from the test. The time result is acceptable in relation to the goal from \secref{sec:model}.
+In addition to the observations, \tblref{table:FinalTimeTestRobot} shows the time results from the tests. The time results are acceptable in relation to the goal from \secref{sec:model}.
 
 
 

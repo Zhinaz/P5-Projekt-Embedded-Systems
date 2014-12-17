@@ -10,7 +10,7 @@ The NN-algorithm starts by doing a 360 degrees turn while scanning the nearby ar
 
 The algorithm uses trigonometry to select the next object, by using the current position, the starting position and the position of the next object. These positions are in relation to the starting position, where all the objects positions were found. The amount of degrees the \projname{} must turn, in order to get to the same heading as the next object, is saved as instructions, along with the distance that needs to be travelled in order to get to it. 
 
-These instructions must then be followed after the route has been calculated. \figref{fig:object_navigation_first} shows a situation where all the objects have been spotted, and now the \projname{} must decide which object that should be collected first. At this point the shortest object is easy to conclude, as the distance to all objects, from the starting position, is already known, based on information from the ultrasonic sensor. The shortest distance overall is found, and saved along with the heading, and the object associated to this is remembered, and marked as collected, to remove this from consideration when finding the next objects. Another set of instructions is used to ensure that the \projname{} is pointing back, at the starting position. This is used to ease the calculations of the following objects. 
+These instructions must then be followed after the route has been calculated. \figref{fig:object_navigation_first} shows a situation where all the objects have been spotted, and now the \projname{} must decide which object that should be collected first. At this point the shortest object is easy to calculate, as the distance to all objects, from the starting position, is already known, based on information from the ultrasonic sensor. The shortest distance overall is found, and saved along with the heading, and the object associated to this is remembered, and marked as added to the instructions, to remove this from consideration when finding the path to the next objects. Another set of instructions is used to ensure that the \projname{} is pointing back, at the starting position. This is used to ease the calculations of the following objects. 
 
 \begin{figure}[H]
      \center{\includegraphics[width=\textwidth]
@@ -28,17 +28,17 @@ But for this, the A angle is needed. This is calculated from the spotted angles 
 A = (Object~currently~at~spotted~angle) - (Object~closest~spotted~angle) \label{equation:AAngle}
 \end{equation}
 
-With the same method as the first object, the object with the shortest distance, from the current object, is found and saves the object number. Now the heading to the closest object must be calculated, and this is the angle calculated by the formula:
+With the same method as the first object, the object with the shortest distance, from the current object, is found and the object number is saved. Now the heading to the closest object must be calculated, and this is the angle calculated by the formula:
 \begin{equation}
 B = cos^{-1}((a^2 + c^2 - b^2)/(2*a*c)) \label{equation:B}
 \end{equation}
 
-This provides the angle that must be turned in order to face the next object. In \figref{fig:object_navigation_iteration} the \projname{} is pointed towards the starting position, and the angle that must be turned is calculated from equation \ref{equation:B}. The current heading added/subtracted (depending on the position) with the angle provides the heading to the next object. This angle is added to the instructions along with the distance. Then the final angle of the triangle is calculated, which is used to turn the \projname{} towards the starting position again. The final angle is calculated with the formula:
+This provides the angle that must be turned in order to face the next object. In \figref{fig:object_navigation_iteration} the \projname{} is pointed towards the starting position, and the angle that must be turned is calculated from \equref{equation:B}. The current heading added/subtracted (depending on the position) with the angle provides the heading to the next object. This angle is added to the instructions along with the distance. Then the final angle of the triangle is calculated, which is used to turn the \projname{} towards the starting position again. The final angle is calculated with the formula:
 \begin{equation}
 C = 180 - A - B \label{equation:C}
 \end{equation}
 
-In order to point the \projname{} at the starting position again, the current heading is subtracted with (180 - C), where C is found by equation \ref{equation:C}. This process has provided the route to the next object, and the instructions to turn the \projname{} back, facing the starting position. The second step is executed for the remaining objects that were spotted. 
+In order to point the \projname{} at the starting position again, the current heading is subtracted with (180 - C), where C is found by \equref{equation:C}. This process has provided the route to the next object, and the instructions to turn the \projname{} back, facing the starting position. \fxnote{ibsen: hvorfor skal den dreje tilbage mod start? du burde være i stand til at lave udregningerne uden at den rent faktisk gør det} The iterative step, that uses trigonometry to calculate the route to the next object, is executed for the remaining objects that were spotted.
 
 \begin{figure}[H]
      \center{\includegraphics[width=\textwidth]
@@ -73,7 +73,7 @@ In this case, a small routine will be initiated, where the robot will turn a lit
 
 The shortest route between the objects can be brute forced by trying out every single possible route between the start position and all of the objects. This would have a calculation time of $\mathcal{O}(n!)$, which means that with every object added, the running time greatly increases. This gives the robot problems when calculating the shortest route, if the amount of objects exceeds a certain number, due to its limited processing power. If there are 9 objects for instance, the number of different paths to check exceeds 360,000.  
 
-A faster, but less distance-efficient algorithm is the NN-algorithm. The algorithm calculates a route based on which objects are closest together. This means that the distance to all the points are calculated from the starting point and the shortest distance is chosen. This is then repeated from the new point, but this time it does not include the objects from previously visited points. This results in a worst case calculation time of $\mathcal{O}(n^2)$, although as the number of remaining objects decreases for each object added to the route, described by $\sum\limits_{i=n}^n i = i - 1$, the calculation time decreases for each object. Compared to the brute force, this algorithm uses only a fraction of the time to compute the result. 
+A faster, but less distance-efficient algorithm is the NN-algorithm. The algorithm calculates a route based on which objects are closest together. This means that the distance to all the points are calculated from the starting point and the shortest distance is chosen. This is then repeated from the new point, but this time it does not include the objects from previously visited points. This results in a worst case calculation time of $\mathcal{O}(n^2)$, although as the number of remaining objects decreases for each object added to the route, described by $\sum\limits_{i=n}^n i = i - 1$, the calculation time decreases for each object. Compared to the brute force approach, this algorithm uses only a fraction of the time to compute the result. 
 
 An algorithm that doesn't spend time on calculations prior to moving for objects is the next-in-view algorithm. This algorithm has a number of issues connected to it, which may reduce its performance, however in smaller cases with less than ten objects, its completion speed is close to the NN-algorithm. This is based purely on a theoretical test calculation.
 
@@ -83,7 +83,7 @@ An algorithm that doesn't spend time on calculations prior to moving for objects
      \caption{\label{fig:algorithm-example} Example of the NN-algorithm, the optimal solution, and next-in-view algorithm.}
 \end{figure}
 
-\figref{fig:algorithm-example} shows three solutions to the problem. The top right graph is the optimal solution, which is only used to compare the results from the two other algorithms. Top left is the NN-algorithm, and in the bottom the next-in-view algorithm. The robot starts its route at position \emph{S}. The objects are named in order as they are first detected, if scanning clockwise. The algorithms result in the routes shown on the figure.
+\figref{fig:algorithm-example} shows three solutions to the problem. The top right graph is the optimal solution, which is only used to compare the results from the two other algorithms. Top left is the NN-algorithm, and in the bottom the next-in-view algorithm. The robot starts its route at position \emph{S}, facing north (0 degrees) for these examples. The objects are named in order as they are first detected, if scanning clockwise. The algorithms result in the routes shown on the figure.
 
 The different algorithms result in the routes shown in \figref{fig:algorithm-example}, and have following lengths:
 \begin{itemize}

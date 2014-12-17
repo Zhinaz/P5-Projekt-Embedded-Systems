@@ -1,8 +1,8 @@
 \section{Future works} \label{sec:future_works}
 This sections presents some of the ideas for future extensions, that could be developed and implemented to make the \projname{} better at collecting objects. 
 
-\subsubsection{Laser object detection}
-Having a distance laser to detect objects would greatly increase the precision while the \projname{} is scanning. The currently used ultrasonic sensor has a very broad view which makes it difficult to determine the exact centre of the objects and it would be easier to determine how many objects that are close to the robot. If two objects are within the ultrasonic sensor's view at the same time, the robot will not be able to detect the difference between them and therefore count them as one.
+\subsubsection{Improved object detection}
+Having a more precise distance sensor to detect objects would greatly increase the precision while the \projname{} is scanning. Other options could be lasers or cameras.
 
 \subsubsection{Coloured object detection}
 Having a colour sensor next to the object detector would allow the robot to determine between object that should be picked up and object that it should ignore. When collecting objects in for example a child's room, there are several objects that the robot should not try to collect such as legs on a table or bed. The robot could be programmed to avoid the colours of these legs. The problem here is that there exist an almost unlimited amount of differently colour table legs, therefore an easier solution would have to be applied. This could for example be to apply a plain-coloured slap bracelet, to each leg with a colour that the robot should ignore \citep{slap_bracelet}.
@@ -12,7 +12,9 @@ As it is right now the robot is only able to detect objects that are approximate
 
 This could be done by driving approximately 100 cm in a chosen direction and do a new search. The problem with this is that the robot might hit an object on the way to the new scanning point. There would also be corners between the circles that the ultrasonic would not have scanned due to the distance.
 
-Another solution would be to drive to the edge of the scanned area and do a new scan from here. This would ensure that no object would be hit while driving to the new area. The problem is that the robot would still do a 360 degrees scan even though that half of the area would already have been scanned.
+Another solution would be to drive to the edge of the scanned area and do a new scan from here. This would ensure that no object would be hit while driving to the new area. The problem is that the robot would still do a 360 degrees scan even though that half of the area would already have been scanned. 
+
+A more intelligent solution could be to map the area, while scanning and collecting objects. This would ensure that every position, inside the boundary would be visited, ensuring that all objects inside the boundary are collected. 
 
 \subsubsection{Object deposit area}
 While the robot is able to store some objects while driving around, having a deposit area would allow the robot to pick up more objects in a larger area. This would require an exact coordinate system that the robot should be able to follow. This is something that is not implemented in the project, but it was discussed in the early stages as a solution. Being able to find this deposit area and getting back is the primary problem for the robot in its current state. The solution to this would be to place the deposit area at the robots start position, but this would result in a new problem if the robot ever has to do a new 360 degree search. 
