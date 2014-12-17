@@ -38,7 +38,7 @@ This provides the angle that must be turned in order to face the next object. In
 C = 180 - A - B \label{equation:C}
 \end{equation}
 
-In order to point the \projname{} at the starting position again, the current heading is subtracted with (180 - C), where C is found by \equref{equation:C}. This process has provided the route to the next object, and the instructions to turn the \projname{} back, facing the starting position. \fxnote{ibsen: hvorfor skal den dreje tilbage mod start? du burde være i stand til at lave udregningerne uden at den rent faktisk gør det} The iterative step, that uses trigonometry to calculate the route to the next object, is executed for the remaining objects that were spotted.
+In order to point the \projname{} at the starting position again, the current heading is subtracted with (180 - C), where C is found by \equref{equation:C}. This process has provided the route to the next object, and the instructions to turn the \projname{} back, facing the starting position. The iterative step, that uses trigonometry to calculate the route to the next object, is executed for the remaining objects that were spotted.
 
 \begin{figure}[H]
      \center{\includegraphics[width=\textwidth]
@@ -98,5 +98,6 @@ Due to the limitations of the LEGO NXT brick and the complexity of the problem, 
 
 The NN-algorithm is expected to yield the most efficient results, however based on the hardware test of the ultrasonic sensor in \secref{sec:ultrasonic_sensor}, it was deemed unlikely that it would work in practice, since it heavily relies on accurate information about the location of objects in the environment. Due to this, the NN-algorithm was designed in the case that it would work in practice, however the NIV-algorithm was designed and implemented first, as insurance that the robot would be able to complete its task, however not as efficiently.
 
-As mentioned in the test case from \secref{sec:nn-algorithm}, the difference between the two algorithms' distance were nearly insignificant. This also means that using a state-based representation of the world is preferred, where each state represents the robots behaviour. If the NN-algorithm were used, a feature based representation would be better suited for the \projname{}, because of the need to map the location of each found object in relation to the environment.
+As mentioned in the test case from \secref{sec:nn-algorithm}, the difference between the two algorithms' distance were nearly insignificant. 
 
+Neither algorithm ensures that the entirety of the environment has been checked for the presence for objects. This problem, as mentioned in \secref{sec:problem-description}, is complex and is not the focus of the project. The \projname{} will terminate once all objects have been found, and if it cannot find all of them, it will keep searching. This is not optimal, and it is obvious that the algorithms described here would have to be expanded to work in a real scenario.

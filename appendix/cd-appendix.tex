@@ -1,31 +1,49 @@
 \chapter{CD} \label{app:CD}
 Attached to the rapport is a CD. For the structure of the CD, source code has been put into folders as described below:
 
-\begin{enumerate}
-\item Source code for the final master version
-\begin{itemize}
-\item /Program/Master/Master.cpp
-\item /Program/Master/Master.oil 
-\item /Program/Master/Makefile
-\end{itemize}
+%\begin{enumerate}
+%\item Source code for the final master version
+%\begin{itemize}
+%\item /Program/Master/Master.cpp
+%\item /Program/Master/Master.oil 
+%\item /Program/Master/Makefile
+%\end{itemize}
+%
+%\item Source code for final slave version
+%\begin{itemize}
+%\item /Program/Slave/Slave.cpp
+%\item /Program/Slave/Slave.oil
+%\item /Program/Slave/Makefile
+%\end{itemize}
+%
+%\item Source code, using nearest neighbour algorithm, master code
+%\begin{itemize}
+%\item /Algorithm/MasterNN.cpp
+%\item /Algorithm/MasterNN.oil
+%\item /Algorithm/Makefile
+%\end{itemize}
+%
+%\item Report
+%\begin{itemize}
+%\item Report.pdf
+%\end{itemize}
+%\end{enumerate}
 
-\item Source code for final slave version
-\begin{itemize}
-\item /Program/Slave/Slave.cpp
-\item /Program/Slave/Slave.oil
-\item /Program/Slave/Makefile
-\end{itemize}
-
-\item Source code, using nearest neighbour algorithm, master code
-\begin{itemize}
-\item /Algorithm/MasterNN.cpp
-\item /Algorithm/MasterNN.oil
-\item /Algorithm/Makefile
-\end{itemize}
-
-\item Report
-\begin{itemize}
-\item Report.pdf
-\end{itemize}
-\end{enumerate}
-
+\renewcommand*\DTstylecomment{\rmfamily\color{mygreen}\textsc}
+\dirtree{%
+	.1 /.
+		.2 Algorithm \ldots{} {\color{mygreen}\begin{minipage}[t]{5cm}Master brick source code with NN-algorithm.\end{minipage}}.
+			.3 MasterNN.cpp.
+			.3 MasterNN.oil.
+			.3 Makefile.
+		.2 Program~~ \ldots{} {\color{mygreen}\begin{minipage}[t]{5cm}Final version of the master and slave bricks' source code.\end{minipage}}.
+			.3 Master.
+				.4 Master.cpp.
+				.4 Master.oil.
+				.4 Makefile.
+			.3 Slave.
+				.4 Slave.cpp.
+				.4 Slave.oil.
+				.4 Makefile.
+		.2 Report.pdf \ldots{} {\color{mygreen}\begin{minipage}[t]{5cm}Copy of the report.\end{minipage}}.
+}

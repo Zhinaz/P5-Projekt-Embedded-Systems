@@ -5,9 +5,7 @@ A few different OSes were considered for the \projname{}. The default NXT firmwa
 
 A considered custom firmware was leJOS NXJ, that uses the programming language Java. The leJOS NXJ OS contains a tiny Java virtual machine to execute the code \citep{lejos}. This implies that, had this OS been chosen, the source code would be written in Java.
 
-Another of the considered custom firmwares is nxtOSEK. nxtOSEK is a hybrid between the device drivers of leJOS NXJ, the TOPPERS/ATK Kernel, and the TOPPERS/JSP Real-Time OS. It supports programming in ANSI C/C++ using GCC (GNU ARM) and contains a C and C++ API for the NXT sensors and motors~\citep{nxtosek, toppers_atk, toppers_jsp, nxtOSEK2, nxtosek_api}.
-
-nxtOSEK supports multithreading and real-time multi tasking features, and more importantly for the \projname{}, events are also supported. Bluetooth connection is supported, both brick to brick, and brick to pc, where R/C and Data Logging possibilities exist.
+Another of the considered custom firmwares is nxtOSEK. nxtOSEK is a hybrid between the device drivers of leJOS NXJ, the TOPPERS/ATK Kernel, and the TOPPERS/JSP Real-Time OS. It supports programming in ANSI C/C++ using GCC (GNU ARM) and contains a C and C++ API for the NXT sensors and motors~\citep{nxtosek, toppers_atk, toppers_jsp, nxtOSEK2, nxtosek_api}. nxtOSEK supports multithreading and real-time multi tasking features, and more importantly for the \projname{}, events are also supported. Bluetooth connection is supported, both brick to brick, and brick to pc, where R/C and Data Logging possibilities exist.
 
 The default OS is more restrictive than some of the alternatives. Because of this, it was decided to use one of the custom firmwares. The C/C++ languages were favoured over Java and is the main reason why nxtOSEK was chosen over leJOS.
 
